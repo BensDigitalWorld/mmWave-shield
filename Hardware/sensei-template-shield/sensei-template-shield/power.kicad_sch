@@ -1,0 +1,46 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "f5e740b7-10b4-4395-a7e4-13fe84c2bf69")
+	(paper "A4")
+	(title_block
+		(title "Sensei BioGAP Template Shield")
+		(date "2026-01-27")
+		(rev "1")
+		(company "ETH Zurich")
+		(comment 1 "Riccardo Testa")
+		(comment 2 "riccardo.testa@edu.unige.it")
+	)
+	(lib_symbols)
+	(text "Power Configuration"
+		(exclude_from_sim no)
+		(at 36.576 23.114 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+			)
+		)
+		(uuid "7ec32f62-48bb-4517-80ee-eb87f15d10ee")
+	)
+	(text_box "- Battery (VBAT)\n- Always on 1.8V up to 750mA (1V8)\n- System voltage between VBAT and VUSB (Vsys)\n- Three software-controlled digital supplies (VD0, VD1, VD2)\n- Two software-controlled analog supplies (VA0, VA1)\n\nDefault\n- VD0: Off\n- VD1: 1.8V Buck\n- VD2: Off\n- VA0: Off\n- VA1: Off\n- 1V8: Always On\n\n"
+		(exclude_from_sim no)
+		(at 17.78 25.4 0)
+		(size 62.23 29.21)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "81bc4c0e-1f26-4e96-9882-7bf670b7914c")
+	)
+)

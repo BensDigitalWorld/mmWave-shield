@@ -1,0 +1,98 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "b23235f7-24c0-4a03-a5d4-36b2dece4562")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 76.2 80.01)
+		(size 68.58 57.15)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "5061bca8-2662-4910-bfc6-7d92a2e70d0a")
+		(property "Sheetname" "sensor"
+			(at 76.2 79.2984 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sensor.kicad_sch"
+			(at 76.2 137.7446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "mmWave-Shield"
+				(path "/b23235f7-24c0-4a03-a5d4-36b2dece4562"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 172.72 102.87)
+		(size 59.69 33.02)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "dbbf12c7-4500-4ab9-b069-25ddf38eaee9")
+		(property "Sheetname" "Connectors"
+			(at 172.72 102.1584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "connectors.kicad_sch"
+			(at 172.72 136.4746 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "mmWave-Shield"
+				(path "/b23235f7-24c0-4a03-a5d4-36b2dece4562"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

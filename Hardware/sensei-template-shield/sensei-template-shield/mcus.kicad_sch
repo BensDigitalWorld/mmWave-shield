@@ -1,0 +1,16 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "31347f7d-d597-4e14-b54a-130e0e766b38")
+	(paper "A4")
+	(title_block
+		(title "Sensei BioGAP Template Shield")
+		(date "2026-01-27")
+		(rev "1")
+		(company "ETH Zurich")
+		(comment 1 "Riccardo Testa")
+		(comment 2 "riccardo.testa@edu.unige.it")
+	)
+	(lib_symbols)
+)
