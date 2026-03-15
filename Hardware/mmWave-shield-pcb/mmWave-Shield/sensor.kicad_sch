@@ -4506,7 +4506,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_01005_0402Metric"
+		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
 			(at 80.01 164.338 90)
 			(effects
 				(font
@@ -4705,7 +4705,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_01005_0402Metric"
+		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
 			(at 127 136.398 90)
 			(effects
 				(font
@@ -5015,7 +5015,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_01005_0402Metric"
+		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
 			(at 254 37.338 90)
 			(effects
 				(font
@@ -5082,7 +5082,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_01005_0402Metric"
+		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
 			(at 80.01 136.398 90)
 			(effects
 				(font
@@ -5727,7 +5727,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_01005_0402Metric"
+		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
 			(at 40.64 164.338 90)
 			(effects
 				(font
@@ -6805,7 +6805,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_01005_0402Metric"
+		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
 			(at 121.92 164.338 90)
 			(effects
 				(font
@@ -6939,7 +6939,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_01005_0402Metric"
+		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
 			(at 40.64 136.398 90)
 			(effects
 				(font

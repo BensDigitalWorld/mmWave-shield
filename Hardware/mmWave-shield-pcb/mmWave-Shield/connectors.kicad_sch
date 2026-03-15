@@ -11813,7 +11813,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Hirose_DF40:Hirose_DF40HC(3.0)-50DS-0.4V_2x25_P0.4mm"
+		(property "Footprint" "Connector_Hirose_DF40:Hirose_DF40C-50DS-0.4V_2x25_P0.4mm"
 			(at 223.52 190.17 0)
 			(effects
 				(font
@@ -13247,7 +13247,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Hirose_DF40:Hirose_DF40HC(3.0)-40DS-0.4V_2x20_P0.4mm"
+		(property "Footprint" "Connector_Hirose_DF40:Hirose_DF40C-40DS-0.4V_2x20_P0.4mm"
 			(at 74.93 196.52 0)
 			(effects
 				(font
