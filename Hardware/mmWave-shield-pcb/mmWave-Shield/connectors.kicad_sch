@@ -4056,11 +4056,38 @@
 			(embedded_fonts no)
 		)
 	)
+	(bus_alias "CSI_2"
+		(members "CSI_CLK_N" "CSI_CLK_P" "CSI_D0_N" "CSI_D0_P")
+	)
 	(bus_alias "GPIOs_shared"
-		(members "nRF_P1.00_GAP_GPIO60" "nRF_P1.01_GAP_GPIO61")
+		(members "nRF_P1.00_GAP_GPIO60" "nRF_P1.01_GAP_GPIO61" "nRF_P1.09_GAP_GPIO62"
+			"nRF_P1.11_GAP_GPIO63" "nRF_P1.12_GAP_GPIO64" "SHARED_GPIOs_SEL" "ADS_A_DR"
+			"ADS_B_DR"
+		)
+	)
+	(bus_alias "I2C_shared"
+		(members "I2C_A_SDA" "I2C_A_SCL" "I2C_B_SDA" "I2C_B_SCL" "I2C_GAP_SEL")
+	)
+	(bus_alias "MIC"
+		(members "MIC_DATA" "MIC_CLK" "MIC_THSEL" "MIC_WAKE")
+	)
+	(bus_alias "MSP430"
+		(members "MSP_~{TRST}" "MSP_TCK" "MSP_TMS" "MSP_TDI" "MSP_TDO" "MSP_VCC"
+			"MSP_CS" "MSP_DR2" "MSP_DR1"
+		)
 	)
 	(bus_alias "SPI_shared"
-		(members "SPI_A_MOSI" "SPI_A_MISO" "SPI_A_CLK" "SPI_A_CS")
+		(members "SPI_A_MOSI" "SPI_A_MISO" "SPI_A_CLK" "SPI_A_CS" "SPI_B_MOSI"
+			"SPI_B_MISO" "SPI_B_CS" "SPI_B_CLK" "SPI_GAP_SEL"
+		)
+	)
+	(bus_alias "SWD"
+		(members "~{RST}" "SWDIO" "SWDCLK" "SWO")
+	)
+	(bus_alias "nRF_GPIOs"
+		(members "nRF_P0.04" "nRF_P0.05" "nRF_P0.07" "nRF_P0.25" "nRF_P0.26" "nRF_P0.27"
+			"nRF_P0.31"
+		)
 	)
 	(text "50-pin board-to-board connector (female)"
 		(exclude_from_sim no)
