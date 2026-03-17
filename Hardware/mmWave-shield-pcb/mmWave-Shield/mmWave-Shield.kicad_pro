@@ -570,7 +570,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "mmWave-Shield.step",
       "svg": "",
       "vrml": ""
     },
