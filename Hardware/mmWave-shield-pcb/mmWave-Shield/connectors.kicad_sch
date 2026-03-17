@@ -4059,6 +4059,11 @@
 	(bus_alias "CSI_2"
 		(members "CSI_CLK_N" "CSI_CLK_P" "CSI_D0_N" "CSI_D0_P")
 	)
+	(bus_alias "GAP_GPIOs"
+		(members "GAP_GPIO46" "GAP_GPIO47" "GAP_GPIO50" "GAP_GPIO51" "GAP_GPIO48"
+			"GAP_GPIO49"
+		)
+	)
 	(bus_alias "GPIOs_shared"
 		(members "nRF_P1.00_GAP_GPIO60" "nRF_P1.01_GAP_GPIO61" "nRF_P1.09_GAP_GPIO62"
 			"nRF_P1.11_GAP_GPIO63" "nRF_P1.12_GAP_GPIO64" "SHARED_GPIOs_SEL" "ADS_A_DR"
@@ -4068,6 +4073,11 @@
 	(bus_alias "I2C_shared"
 		(members "I2C_A_SDA" "I2C_A_SCL" "I2C_B_SDA" "I2C_B_SCL" "I2C_GAP_SEL")
 	)
+	(bus_alias "JTAG_GAP9"
+		(members "VQPS_FUSE_1V8" "RESET_N" "~{TRST}" "TCK" "TCS/CS_RAM_GATE" "TDI"
+			"TDO" "VCC_GAP9"
+		)
+	)
 	(bus_alias "MIC"
 		(members "MIC_DATA" "MIC_CLK" "MIC_THSEL" "MIC_WAKE")
 	)
@@ -4075,6 +4085,9 @@
 		(members "MSP_~{TRST}" "MSP_TCK" "MSP_TMS" "MSP_TDI" "MSP_TDO" "MSP_VCC"
 			"MSP_CS" "MSP_DR2" "MSP_DR1"
 		)
+	)
+	(bus_alias "QVAR_IMU"
+		(members "QVAR_IMU_1" "QVAR_IMU_2")
 	)
 	(bus_alias "SPI_shared"
 		(members "SPI_A_MOSI" "SPI_A_MISO" "SPI_A_CLK" "SPI_A_CS" "SPI_B_MOSI"
@@ -4086,7 +4099,12 @@
 	)
 	(bus_alias "nRF_GPIOs"
 		(members "nRF_P0.04" "nRF_P0.05" "nRF_P0.07" "nRF_P0.25" "nRF_P0.26" "nRF_P0.27"
-			"nRF_P0.31"
+			"nRF_P0.31" "MSP_DR2" "MSP_DR1" "MSP_CS" "nRF_P0.07/AMUX"
+		)
+	)
+	(bus_alias "nRF_QSPI"
+		(members "nRF_QSPI_IO0" "nRF_QSPI_IO1" "nRF_QSPI_IO2" "nRF_QSPI_IO3" "nRF_QSPI_CLK"
+			"nRF_QSPI_CS_CONN" "nRF_QSPI_CS_RAM"
 		)
 	)
 	(text "50-pin board-to-board connector (female)"
@@ -5132,6 +5150,15 @@
 		(uuid "ec991700-4172-4a9f-bb49-95246d003fd2")
 	)
 	(bus_entry
+		(at 57.15 185.42)
+		(size -2.54 2.54)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eca986c3-d138-40fe-bdf2-96a8d194a87e")
+	)
+	(bus_entry
 		(at 92.71 167.64)
 		(size -2.54 2.54)
 		(stroke
@@ -5186,15 +5213,6 @@
 		(uuid "f7932e3f-d9b3-41b6-af43-111df637d478")
 	)
 	(bus_entry
-		(at 57.15 185.42)
-		(size -2.54 2.54)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fbde03b3-efbc-451c-a88f-21a442b6ee3e")
-	)
-	(bus_entry
 		(at 97.79 147.32)
 		(size -2.54 -2.54)
 		(stroke
@@ -5202,16 +5220,6 @@
 			(type default)
 		)
 		(uuid "fd6202ca-ef83-4ed1-a4fd-b16747feebfd")
-	)
-	(bus
-		(pts
-			(xy 57.15 170.18) (xy 57.15 172.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "003d3e2a-1220-4fbb-b995-c7d9d82a0107")
 	)
 	(wire
 		(pts
@@ -5362,16 +5370,6 @@
 			(type default)
 		)
 		(uuid "07635c7e-6729-46a5-be91-3dd01c255ae8")
-	)
-	(bus
-		(pts
-			(xy 57.15 172.72) (xy 57.15 175.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "07ba003d-2baf-46c4-8755-4fd0fa8f3034")
 	)
 	(wire
 		(pts
@@ -5853,16 +5851,6 @@
 		)
 		(uuid "2ed147cc-405a-490a-bbc7-735f88b0c93e")
 	)
-	(bus
-		(pts
-			(xy 57.15 162.56) (xy 57.15 165.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2f089dcc-40de-4d66-b33f-20cee4f7e89e")
-	)
 	(wire
 		(pts
 			(xy 245.11 41.91) (xy 246.38 41.91)
@@ -5993,6 +5981,16 @@
 		)
 		(uuid "36ae459b-1802-4b90-aa63-7e8819e10751")
 	)
+	(bus
+		(pts
+			(xy 57.15 180.34) (xy 57.15 185.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "37fa420b-518b-4fd0-b7aa-7dd226c9c456")
+	)
 	(wire
 		(pts
 			(xy 175.26 67.31) (xy 194.31 67.31)
@@ -6002,16 +6000,6 @@
 			(type default)
 		)
 		(uuid "3b6d7cb6-029b-4906-bc4e-6374eca9484b")
-	)
-	(bus
-		(pts
-			(xy 57.15 165.1) (xy 57.15 170.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3c0464ab-072e-4db1-be6a-58573a42cb56")
 	)
 	(wire
 		(pts
@@ -6102,16 +6090,6 @@
 			(type default)
 		)
 		(uuid "45bb2623-36b7-421e-9d51-0fd1831326b9")
-	)
-	(bus
-		(pts
-			(xy 57.15 175.26) (xy 57.15 177.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "465383d2-deee-4c84-904e-1bbb2eda21f8")
 	)
 	(wire
 		(pts
@@ -6715,6 +6693,16 @@
 	)
 	(wire
 		(pts
+			(xy 53.34 187.96) (xy 54.61 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "710cac49-d864-41b6-b6cf-abc2cb5bed94")
+	)
+	(wire
+		(pts
 			(xy 168.91 172.72) (xy 168.91 189.23)
 		)
 		(stroke
@@ -7053,16 +7041,6 @@
 		)
 		(uuid "88c6a382-aeb9-4a06-8cf9-d747ac5ff187")
 	)
-	(bus
-		(pts
-			(xy 57.15 177.8) (xy 57.15 180.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "89992f6d-92f6-40cb-ad13-6b3ca456d158")
-	)
 	(wire
 		(pts
 			(xy 78.74 43.18) (xy 101.6 43.18)
@@ -7132,6 +7110,16 @@
 			(type default)
 		)
 		(uuid "8f422914-76d3-4239-8f5f-e0702290ff13")
+	)
+	(bus
+		(pts
+			(xy 57.15 161.29) (xy 57.15 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8f426cfe-d3a8-4251-8c89-1d5963147f75")
 	)
 	(wire
 		(pts
@@ -7343,6 +7331,16 @@
 		)
 		(uuid "991b3c6d-e3c6-47c1-a66e-224174f33cff")
 	)
+	(bus
+		(pts
+			(xy 57.15 162.56) (xy 57.15 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "999f8b46-a35e-456d-9407-5a96e63109a5")
+	)
 	(polyline
 		(pts
 			(xy 93.98 181.61) (xy 93.98 187.325)
@@ -7483,6 +7481,16 @@
 		)
 		(uuid "a2748f80-ed1c-4055-8e99-35e17e6f62f4")
 	)
+	(bus
+		(pts
+			(xy 57.15 165.1) (xy 57.15 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a32ac73d-bab5-4276-976b-f534dde6b049")
+	)
 	(wire
 		(pts
 			(xy 182.88 29.21) (xy 194.31 29.21)
@@ -7542,6 +7550,16 @@
 			(type default)
 		)
 		(uuid "a625553f-c780-4ec8-9a92-8839670c29c4")
+	)
+	(bus
+		(pts
+			(xy 57.15 172.72) (xy 57.15 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a694451e-524f-4079-8be8-07e2fa1b8e5c")
 	)
 	(wire
 		(pts
@@ -7933,6 +7951,16 @@
 		)
 		(uuid "c6138c7c-980e-429c-8799-fd8ec13d87e4")
 	)
+	(bus
+		(pts
+			(xy 57.15 170.18) (xy 57.15 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c618007a-a2e9-4bf9-8718-1ee3dda7bc22")
+	)
 	(wire
 		(pts
 			(xy 201.93 113.03) (xy 182.88 113.03)
@@ -8002,16 +8030,6 @@
 			(type default)
 		)
 		(uuid "c7eed82b-e449-46fe-90d0-9effb9f508b4")
-	)
-	(bus
-		(pts
-			(xy 57.15 180.34) (xy 57.15 185.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c85c9fcc-5daf-4d80-a361-67cb529a3c0e")
 	)
 	(wire
 		(pts
@@ -8363,6 +8381,16 @@
 		)
 		(uuid "df3c2ce5-bc7f-4875-86b4-a08da368531f")
 	)
+	(bus
+		(pts
+			(xy 57.15 175.26) (xy 57.15 177.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e02fd848-a2cf-4dec-a54b-39c3437a01b1")
+	)
 	(wire
 		(pts
 			(xy 88.9 167.64) (xy 90.17 167.64)
@@ -8562,16 +8590,6 @@
 			(type default)
 		)
 		(uuid "ea3e4cff-8149-4e99-b9a7-7d729da66451")
-	)
-	(wire
-		(pts
-			(xy 53.34 187.96) (xy 54.61 187.96)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "eb2d13d9-c177-4aab-997e-dc3a040d37aa")
 	)
 	(bus
 		(pts
@@ -8903,6 +8921,16 @@
 		)
 		(uuid "fdb37184-e397-4db3-b514-c16b4431fa2a")
 	)
+	(bus
+		(pts
+			(xy 57.15 177.8) (xy 57.15 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fdeecac3-56c0-4ea2-a20d-62c23bec60b5")
+	)
 	(wire
 		(pts
 			(xy 72.39 175.26) (xy 73.66 175.26)
@@ -8922,16 +8950,6 @@
 			(type default)
 		)
 		(uuid "fe9b5ee0-36e7-4ab4-a4cb-def17ae66a06")
-	)
-	(bus
-		(pts
-			(xy 57.15 161.29) (xy 57.15 162.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ff63ff30-8a40-4f61-9e2a-dc49f5eb1294")
 	)
 	(wire
 		(pts
@@ -10153,6 +10171,16 @@
 		)
 		(uuid "9952b76b-d930-43e9-a480-86c0dac4e0df")
 	)
+	(label "SHARED_GPIOs_SEL"
+		(at 53.34 187.96 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9975ccb0-0403-4bbf-8330-01023ebb585b")
+	)
 	(label "VQPS_FUSE_1V8"
 		(at 55.88 20.32 180)
 		(effects
@@ -10472,16 +10500,6 @@
 			(justify right bottom)
 		)
 		(uuid "c1233b61-d3b9-4ac2-a484-1b2cbb23ac00")
-	)
-	(label "SHARED_GPIOs_SEL"
-		(at 53.34 187.96 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "c600eb41-2bf1-4f2e-8f6f-fbd17f6f4fc8")
 	)
 	(label "MSP_DR2"
 		(at 175.26 72.39 0)
@@ -11819,10 +11837,10 @@
 		(lib_id "dz_con:DF40C-50DP-0.4V_51")
 		(at 201.93 95.25 0)
 		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board no)
+		(dnp yes)
 		(uuid "2b62902c-a433-4ea2-8a9f-a918ae87971a")
 		(property "Reference" "J6"
 			(at 220.726 91.186 0)
@@ -13253,10 +13271,10 @@
 		(lib_id "dz_con:DF40C-40DP-0.4V_51")
 		(at 53.34 101.6 0)
 		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board no)
+		(dnp yes)
 		(uuid "8d33ab9a-8690-4f34-bdf9-91396c2dca4d")
 		(property "Reference" "J5"
 			(at 72.136 97.536 0)

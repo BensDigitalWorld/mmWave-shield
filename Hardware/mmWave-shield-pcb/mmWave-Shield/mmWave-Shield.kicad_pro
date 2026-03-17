@@ -231,7 +231,74 @@
       "mpn": ""
     },
     "layer_pairs": [],
-    "layer_presets": [],
+    "layer_presets": [
+      {
+        "activeLayer": -2,
+        "flipBoard": true,
+        "layers": [
+          3,
+          7,
+          25,
+          29
+        ],
+        "name": "bak",
+        "renderLayers": [
+          "vias",
+          "footprint_text",
+          "footprint_anchors",
+          "ratsnest",
+          "grid",
+          "footprints_front",
+          "footprints_back",
+          "footprint_values",
+          "footprint_references",
+          "tracks",
+          "drc_errors",
+          "drawing_sheet",
+          "bitmaps",
+          "pads",
+          "zones",
+          "drc_warnings",
+          "drc_exclusions",
+          "locked_item_shadows",
+          "conflict_shadows",
+          "shapes"
+        ]
+      },
+      {
+        "activeLayer": -2,
+        "flipBoard": false,
+        "layers": [
+          1,
+          5,
+          25,
+          31
+        ],
+        "name": "vront",
+        "renderLayers": [
+          "vias",
+          "footprint_text",
+          "footprint_anchors",
+          "ratsnest",
+          "grid",
+          "footprints_front",
+          "footprints_back",
+          "footprint_values",
+          "footprint_references",
+          "tracks",
+          "drc_errors",
+          "drawing_sheet",
+          "bitmaps",
+          "pads",
+          "zones",
+          "drc_warnings",
+          "drc_exclusions",
+          "locked_item_shadows",
+          "conflict_shadows",
+          "shapes"
+        ]
+      }
+    ],
     "viewports": []
   },
   "boards": [],
@@ -610,6 +677,14 @@
       "version": 1
     },
     "net_format_name": "",
+    "ngspice": {
+      "fix_include_paths": true,
+      "meta": {
+        "version": 0
+      },
+      "model_mode": 4,
+      "workbook_filename": ""
+    },
     "page_layout_descr_file": "",
     "plot_directory": "",
     "space_save_all_events": true,
