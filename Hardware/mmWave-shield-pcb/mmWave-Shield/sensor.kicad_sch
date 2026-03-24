@@ -2784,12 +2784,6 @@
 		(uuid "ad160dc7-ea46-41a1-8b71-afa5a21cc9ab")
 	)
 	(junction
-		(at 270.51 88.9)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "adc8bb30-c131-4ee3-a99f-d727d4831bc9")
-	)
-	(junction
 		(at 246.38 88.9)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2836,12 +2830,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d149a0f3-3a29-4323-928e-fefc06b03d28")
-	)
-	(junction
-		(at 208.28 90.17)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d5ffa9b3-74f6-4a68-b146-67b746b2c0e8")
 	)
 	(junction
 		(at 64.77 43.18)
@@ -3357,16 +3345,6 @@
 	)
 	(wire
 		(pts
-			(xy 265.43 88.9) (xy 270.51 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "32226c44-1a12-413e-968b-84b3c0ea9b78")
-	)
-	(wire
-		(pts
 			(xy 219.71 129.54) (xy 220.98 129.54)
 		)
 		(stroke
@@ -3697,17 +3675,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 97.79) (xy 208.28 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "66742fc6-3ddf-4a85-933e-7649fdd5fd60")
-	)
-	(wire
-		(pts
-			(xy 208.28 90.17) (xy 210.82 90.17)
+			(xy 201.93 90.17) (xy 210.82 90.17)
 		)
 		(stroke
 			(width 0)
@@ -3797,7 +3765,7 @@
 	)
 	(wire
 		(pts
-			(xy 270.51 88.9) (xy 274.32 88.9)
+			(xy 265.43 88.9) (xy 274.32 88.9)
 		)
 		(stroke
 			(width 0)
@@ -3994,26 +3962,6 @@
 			(type default)
 		)
 		(uuid "8a33160c-d729-4f47-8788-7814d7a19c32")
-	)
-	(wire
-		(pts
-			(xy 270.51 96.52) (xy 270.51 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8add3521-f94e-41eb-ac0a-11c5983491c6")
-	)
-	(wire
-		(pts
-			(xy 201.93 90.17) (xy 208.28 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8c347466-286c-4c4c-9b86-e06b4c1b45ac")
 	)
 	(wire
 		(pts
@@ -5521,73 +5469,6 @@
 			(project "mmWave-Shield"
 				(path "/b23235f7-24c0-4a03-a5d4-36b2dece4562/5061bca8-2662-4910-bfc6-7d92a2e70d0a"
 					(reference "#PWR038")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 208.28 107.95 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "11963bd2-a6c2-4378-9b79-573e81752249")
-		(property "Reference" "#PWR011"
-			(at 208.28 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 208.28 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 208.28 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 208.28 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 208.28 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e4df8ed8-d359-4e29-97ce-5b2b42f8d411")
-		)
-		(instances
-			(project "mmWave-Shield"
-				(path "/b23235f7-24c0-4a03-a5d4-36b2dece4562/5061bca8-2662-4910-bfc6-7d92a2e70d0a"
-					(reference "#PWR011")
 					(unit 1)
 				)
 			)
@@ -7559,94 +7440,6 @@
 		)
 	)
 	(symbol
-		(lib_id "PCM_Elektuur:C")
-		(at 208.28 102.87 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "51ae12e3-f31f-470b-8edf-b2ae775c3470")
-		(property "Reference" "C17"
-			(at 208.28 100.584 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "47uF"
-			(at 208.28 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 208.28 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 208.28 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "capacitor, non-polarized/bipolar"
-			(at 208.28 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Indicator" "+"
-			(at 207.01 99.695 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Rating" "V"
-			(at 207.645 106.045 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "480a7db7-299a-4bfa-a7f9-f2c98654e9a9")
-		)
-		(pin "1"
-			(uuid "a7568d3c-0581-45ef-a231-2d6f68310d40")
-		)
-		(instances
-			(project "mmWave-Shield"
-				(path "/b23235f7-24c0-4a03-a5d4-36b2dece4562/5061bca8-2662-4910-bfc6-7d92a2e70d0a"
-					(reference "C17")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 111.76 90.17 0)
 		(unit 1)
@@ -9239,7 +9032,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1uF"
+		(property "Value" "4.7uF"
 			(at 182.88 104.14 0)
 			(effects
 				(font
@@ -9434,94 +9227,6 @@
 			(project "mmWave-Shield"
 				(path "/b23235f7-24c0-4a03-a5d4-36b2dece4562/5061bca8-2662-4910-bfc6-7d92a2e70d0a"
 					(reference "#PWR030")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "PCM_Elektuur:C")
-		(at 270.51 101.6 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "a1081cfc-e097-4410-8894-5cbc65dc4b6b")
-		(property "Reference" "C19"
-			(at 270.51 99.314 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "47uF"
-			(at 270.51 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 270.51 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 270.51 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "capacitor, non-polarized/bipolar"
-			(at 270.51 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Indicator" "+"
-			(at 269.24 98.425 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Rating" "V"
-			(at 269.875 104.775 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "b15cae2f-f86a-492e-b5b6-16cdc1f82591")
-		)
-		(pin "1"
-			(uuid "0350acd3-debd-4811-891a-c0d0de1e0507")
-		)
-		(instances
-			(project "mmWave-Shield"
-				(path "/b23235f7-24c0-4a03-a5d4-36b2dece4562/5061bca8-2662-4910-bfc6-7d92a2e70d0a"
-					(reference "C19")
 					(unit 1)
 				)
 			)
@@ -10119,7 +9824,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1uF"
+		(property "Value" "4.7uF"
 			(at 246.38 104.14 0)
 			(effects
 				(font
@@ -11583,73 +11288,6 @@
 			(project "mmWave-Shield"
 				(path "/b23235f7-24c0-4a03-a5d4-36b2dece4562/5061bca8-2662-4910-bfc6-7d92a2e70d0a"
 					(reference "C14")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 270.51 106.68 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ef10f8bc-0487-4319-bc9d-06610b595171")
-		(property "Reference" "#PWR013"
-			(at 270.51 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 270.51 111.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 270.51 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 270.51 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 270.51 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7225ad3b-a6fa-43ed-a6ad-3f9107354bdd")
-		)
-		(instances
-			(project "mmWave-Shield"
-				(path "/b23235f7-24c0-4a03-a5d4-36b2dece4562/5061bca8-2662-4910-bfc6-7d92a2e70d0a"
-					(reference "#PWR013")
 					(unit 1)
 				)
 			)
