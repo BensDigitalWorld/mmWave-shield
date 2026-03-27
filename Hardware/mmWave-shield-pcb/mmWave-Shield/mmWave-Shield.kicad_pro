@@ -62,18 +62,6 @@
         [
           "text_height|150500000|99750000|16517fba-9cc4-4594-b05a-25d6aa8529fb|00000000-0000-0000-0000-000000000000",
           ""
-        ],
-        [
-          "via_dangling|145400000|98600000|77c834e6-35d6-453c-8eff-77c5e30a719c|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "via_dangling|145900000|98600000|0860c207-11a0-45a8-ac66-acd51c6994d4|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "via_dangling|149200000|100650000|b2002938-bfa6-4176-a22c-37ac9abbadb2|00000000-0000-0000-0000-000000000000",
-          ""
         ]
       ],
       "meta": {
@@ -113,9 +101,9 @@
         "missing_footprint": "warning",
         "net_conflict": "warning",
         "nonmirrored_text_on_back_layer": "warning",
-        "npth_inside_courtyard": "ignore",
+        "npth_inside_courtyard": "warning",
         "padstack": "warning",
-        "pth_inside_courtyard": "ignore",
+        "pth_inside_courtyard": "warning",
         "shorting_items": "error",
         "silk_edge_clearance": "warning",
         "silk_over_copper": "warning",
@@ -611,7 +599,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "docs/",
+      "plot": "docs/gerber/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "mmWave-Shield.step",
