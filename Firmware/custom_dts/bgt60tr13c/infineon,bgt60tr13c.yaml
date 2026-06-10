@@ -1,0 +1,26 @@
+description: Infineon BGT60TR13C Radar Sensor
+
+compatible: "infineon,bgt60tr13c"
+
+include: spi-device.yaml
+
+properties:
+  irq-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO for Interrupt Output from Sensor
+
+  reset-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO for Hardware Reset (active low)
+
+  power-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO for enabling the power on the shield
+
+  manual-cs-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO for CS_n on the shield
