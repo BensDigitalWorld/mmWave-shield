@@ -5299,7 +5299,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
+		(property "Footprint" "Project_specific_footprints:IND_1005_TDK-L"
 			(at 91.44 161.798 90)
 			(effects
 				(font
@@ -5566,7 +5566,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
+		(property "Footprint" "Project_specific_footprints:IND_1005_TDK-L"
 			(at 138.43 133.858 90)
 			(effects
 				(font
@@ -6010,7 +6010,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
+		(property "Footprint" "Project_specific_footprints:IND_1005_TDK-L"
 			(at 247.65 39.878 90)
 			(effects
 				(font
@@ -6077,7 +6077,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
+		(property "Footprint" "Project_specific_footprints:IND_1005_TDK-L"
 			(at 91.44 133.858 90)
 			(effects
 				(font
@@ -6146,7 +6146,7 @@
 				)
 			)
 		)
-		(property "Footprint" "aaEXTRAS:TPS22916CYFPR"
+		(property "Footprint" "Project_specific_footprints:TPS22916CYFPR"
 			(at 251.46 85.09 0)
 			(effects
 				(font
@@ -6554,7 +6554,7 @@
 				)
 			)
 		)
-		(property "Footprint" "aaEXTRAS:BGA40N50P9X12_500X650X90-V"
+		(property "Footprint" "Project_specific_footprints:BGA40N50P9X12_500X650X90-V"
 			(at 73.66 25.4 0)
 			(effects
 				(font
@@ -7133,7 +7133,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
+		(property "Footprint" "Project_specific_footprints:IND_1005_TDK-L"
 			(at 52.07 161.798 90)
 			(effects
 				(font
@@ -7971,7 +7971,7 @@
 				)
 			)
 		)
-		(property "Footprint" "aaEXTRAS:TPS22916CYFPR"
+		(property "Footprint" "Project_specific_footprints:TPS22916CYFPR"
 			(at 187.96 86.36 0)
 			(effects
 				(font
@@ -8351,7 +8351,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
+		(property "Footprint" "Project_specific_footprints:IND_1005_TDK-L"
 			(at 133.35 161.798 90)
 			(effects
 				(font
@@ -8485,7 +8485,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MMZ1005S121CT000:IND_1005_TDK-L"
+		(property "Footprint" "Project_specific_footprints:IND_1005_TDK-L"
 			(at 52.07 133.858 90)
 			(effects
 				(font
@@ -10471,7 +10471,7 @@
 				)
 			)
 		)
-		(property "Footprint" "aExtra:KC2016K_KYO"
+		(property "Footprint" "Project_specific_footprints:KC2016K_KYO"
 			(at 179.07 38.1 0)
 			(effects
 				(font

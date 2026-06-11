@@ -40,7 +40,7 @@
 			)
 		)
 		(instances
-			(project "mmWave-Shield"
+			(project "mmWave-shield-pcb"
 				(path "/b23235f7-24c0-4a03-a5d4-36b2dece4562"
 					(page "2")
 				)
@@ -82,7 +82,7 @@
 			)
 		)
 		(instances
-			(project "mmWave-Shield"
+			(project "mmWave-shield-pcb"
 				(path "/b23235f7-24c0-4a03-a5d4-36b2dece4562"
 					(page "3")
 				)
