@@ -1,10 +1,10 @@
 
-# ExG Stream Demo
+# mmWave Stream Demo
 
 This folder contains the firmware to use BioGAP in streaming mode.
 
 ## Getting Started
-Make sure to attach the e Mainboard to the ExGShield or the EMG shield.
+Make sure to attach the e Mainboard to the mmWave shield.
 
 1. Flash the NRF application by opening it in Visual Studio Code using the NRF Connect SDK extension.
 ```sh
