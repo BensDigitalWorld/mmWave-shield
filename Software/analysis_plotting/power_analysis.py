@@ -1,3 +1,30 @@
+# -----------------------------------------------------------------------------
+#
+# File: power_analysis.py
+#
+# Last edited: 23.06.2025
+#
+# Copyright (C) 2026, ETH Zurich
+#
+# Authors:
+# - Benjamin Löliger, ETH Zurich
+#
+# -----------------------------------------------------------------------------
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# -----------------------------------------------------------------------------
+
 import os
 import re
 import numpy as np
@@ -9,10 +36,12 @@ import matplotlib.pyplot as plt
 # CONFIG
 # ============================================================
 
-FOLDER_BASE = r"powerLogs/Baseboard"
-FOLDER_3V3  = r"powerLogs/shield3_3"
-FOLDER_1V8  = r"powerLogs/shield1_8"
-# Setze hier deine tatsächliche Versorgungsspannung für Base/Whole-System
+POWER_LOG_DIR = os.path.join("data", "power_measurments", "powerLogs")
+
+FOLDER_BASE = os.path.join(POWER_LOG_DIR, "Baseboard")
+FOLDER_3V3  = os.path.join(POWER_LOG_DIR, "shield3_3")
+FOLDER_1V8  = os.path.join(POWER_LOG_DIR, "shield1_8")
+
 V_BASE = 4
 V_3V3 = 3.3
 V_1V8 = 1.8
@@ -21,7 +50,9 @@ SETTLING_TIME_S = 5.0
 TOTAL_TIME_S = 35.0
 EVAL_TIME_S = TOTAL_TIME_S - SETTLING_TIME_S
 
-OUTPUT_FOLDER = "power_analysis_output"
+OUTPUT_FOLDER_NAME = "power_analysis_output"
+OUTPUT_FOLDER = os.path.join("plots", OUTPUT_FOLDER_NAME)
+
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 

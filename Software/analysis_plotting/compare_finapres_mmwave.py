@@ -1,3 +1,30 @@
+# -----------------------------------------------------------------------------
+#
+# File: compare_finapres_mmwave.py
+#
+# Last edited: 25.06.2025
+#
+# Copyright (C) 2026, ETH Zurich
+#
+# Authors:
+# - Benjamin Löliger, ETH Zurich
+#
+# -----------------------------------------------------------------------------
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# -----------------------------------------------------------------------------
+
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,23 +36,14 @@ from scipy.interpolate import interp1d
 # ============================================================
 # CONFIG
 # ============================================================
+root = os.path.join("data", "biogap_measurments", "radar_fps_sweep")
 
-files = [
-    #"radar_invivo_fps_sweep_2026-05-22_17-28/fps_200_order_04_rep_3_data.npy",
-    #"radar_invivo_fps_sweep_2026-05-22_17-51/fps_200_order_04_rep_3_data.npy",
-    #"radar_session_2026-03-06_17-39_seb/01_200fps_35chrep_128ch_32sa.npy",
-    #"radar_session_2026-03-06_17-39_seb/09_200fps_35chrep_128ch_32sa.npy",
-    #"radar_session_2026-03-06_17-39_seb/18_200fps_35chrep_128ch_32sa.npy",
-    #"radar_session_2026-03-06_16-57_nima/01_200fps_35chrep_128ch_32sa.npy",
-    #"radar_session_2026-03-06_16-57_nima/09_200fps_35chrep_128ch_32sa.npy",
-    #"radar_session_2026-03-06_16-57_nima/18_200fps_35chrep_128ch_32sa.npy",
-    #"radar_session_2026-03-06_17-15_ben/01_200fps_35chrep_128ch_32sa.npy",
-    #"radar_session_2026-03-06_17-15_ben/09_200fps_35chrep_128ch_32sa.npy",
-    #"radar_session_2026-03-06_17-15_ben/18_200fps_35chrep_128ch_32sa.npy",
-    "radar_invivo_fps_sweep_2026-05-22_18-36/fps_200_order_01_rep_1_data.npy",
-]
+path_temple = os.path.join(root, "radar_invivo_fps_sweep_2026-05-22_18-00","fps_200_order_01_rep_1_data.npy")
+path_wrist = os.path.join(root, "radar_invivo_fps_sweep_2026-05-22_18-36","fps_200_order_01_rep_1_data.npy")
 
-RECORDING_TIME_S = 60*20
+files = [path_temple, path_wrist]
+
+RECORDING_TIME_S = 20*60
 
 RADAR_FREQ_GHZ = 60.75
 
@@ -215,7 +233,7 @@ def process_mmwave_file(
     bin_search_end=None,
 ):
     """
-    Paper-like mmWave processing pipeline.
+    mmWave processing pipeline adapted from Nimas Work
 
     Expected raw data shape:
     frames x antennas x chirps x samples
@@ -283,7 +301,7 @@ def process_mmwave_file(
 
     # ------------------------------------------------------------
     # 8. Automatic antenna/range-bin selection
-    # Paper-like: highest peak-to-peak amplitude of pulsatile signal
+    # highest peak-to-peak amplitude of pulsatile signal
     # ------------------------------------------------------------
     num_bins = filtered_phase.shape[2]
 

@@ -1,4 +1,29 @@
-#bgt_communaication class definition
+# -----------------------------------------------------------------------------
+#
+# File: bgt_com_class.py
+#
+# Last edited: 22.06.2025
+#
+# Copyright (C) 2026, ETH Zurich
+#
+# Authors:
+# - Benjamin Löliger, ETH Zurich
+#
+# -----------------------------------------------------------------------------
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# -----------------------------------------------------------------------------
 
 import argparse
 import serial
@@ -10,22 +35,15 @@ import threading
 import queue
 
 
+# ===========================================================================
+# DEFINES
+# ===========================================================================
 
 PACKET_SIZE = 244
 MMWAVE_HEADER = 0xAA
 MMWAVE_TRAILER = 0x55
 
-
-
-
 # BLE Commands
-#define START_MMWAVE_STREAMING 39
-#define STOP_MMWAVE_STREAMING 40
-#define CONFIGURE_MMWAVE 41
-#define TURN_OFF_MMWAVE 42
-#define TURN_ON_MMWAVE 43
-#define CHANGE_IFGAIN_MMWAVE 44
-
 START_CMD     = (39).to_bytes(1, "big")
 STOP_CMD      = (40).to_bytes(1, "big")
 CONFIGURE_CMD = (41).to_bytes(1, "big")
@@ -38,6 +56,10 @@ SET_FPS       = (46).to_bytes(1, "big")
 VALID_GAIN_STAGES = [18, 23, 28, 30, 33, 35, 38, 40, 43, 45, 48, 50, 55, 60]
 
 VALID_FPS_STAGES = [25, 50, 100, 150, 200]
+
+# ===========================================================================
+# HELPER
+# ===========================================================================
 
 def unpack_12bit_packed(packed_bytes, num_samples):
     raw = np.frombuffer(packed_bytes, dtype=np.uint8)
@@ -65,10 +87,13 @@ def unpack_12bit_packed(packed_bytes, num_samples):
 
     return out[:num_samples]
 
+# ===========================================================================
+# Working Class
+# ===========================================================================
 
 class BGT60Sensor:
     def __init__(self, port, NUM_RX_ANTENNAS, NUM_CHIRPS, NUM_SAMPLES):
-        self.ser = serial.Serial(port, 115200, timeout=0.2) # Baudrate bei USB CDC egal
+        self.ser = serial.Serial(port, 115200, timeout=0.2) 
         self.frame_chunks = []
         self.NUM_SAMPLES = NUM_SAMPLES
         self.NUM_CHIRPS = NUM_CHIRPS
@@ -78,13 +103,13 @@ class BGT60Sensor:
         self.expected_chunk = 0
 
     def start(self, gain_db = None, tx_power=None, fps=None):
-        print("Sende Start-Kommando...")
+        print("Sending Start-Command...")
 
         self.ser.reset_input_buffer()
         self.ser.write(ON_CMD)
         time.sleep(0.01)
 
-         # Optional IF-Gain setzen
+         # Optional set IF-Gain, TX-Power and FPS
         if gain_db is not None:
             self.set_if_gain(gain_db)
 
@@ -99,7 +124,7 @@ class BGT60Sensor:
         self.ser.write(START_CMD)
 
     def stop(self):
-        print("Sende Stop-Kommando...")
+        print("Sending Stop-Command...")
         self.ser.write(STOP_CMD)
         time.sleep(0.01)
         self.ser.write(OFF_CMD)
@@ -110,13 +135,14 @@ class BGT60Sensor:
 
     def set_if_gain(self, gain_db):
         if gain_db not in VALID_GAIN_STAGES:
-            print(f"Fehler: {gain_db} dB ist keine gültige Gain-Stufe!")
-            print(f"Erlaubt sind: {VALID_GAIN_STAGES}")
-            print("Nutze Standard Gain")
+            print(f"Error: {gain_db} dB is not a valid Gain-Stage!")
+            print(f"Valid Stages are: {VALID_GAIN_STAGES}")
+            print("Using Standard Gain")
             return False
         
-        print(f"Sende IF-Gain Kommando: {gain_db} dB")
-        # Paket bauen: Command Byte (0x2C) + Wert-Byte (z.B. 0x17 für 23)
+        print(f"Sending IF-Gain Command: {gain_db} dB")
+        
+        # Build Packet:: Command Byte (0x2C) + Value-Byte (eg. 0x17 for 23)
         payload = SET_IF_GAIN + gain_db.to_bytes(1, "big")
         self.ser.write(payload)
         time.sleep(0.01)
@@ -135,13 +161,13 @@ class BGT60Sensor:
     
     def set_fps(self, fps):
         if fps not in VALID_FPS_STAGES:
-            print(f"Fehler: {fps} ist keine gültige FPS-Stufe!")
-            print(f"Erlaubt sind: {VALID_FPS_STAGES}")
-            print("Nutze Standard FPS")
+            print(f"Error: {fps} is not a valid FPS-Setting!")
+            print(f"Allowd are: {VALID_FPS_STAGES}")
+            print("Using Standard FPS")
             return False
         
-        print(f"Sende FPS Kommando: {fps}")
-        # Paket bauen: Command Byte (0x2C) + Wert-Byte (z.B. 0x17 für 23)
+        print(f"Sending FPS Command: {fps}")
+        
         payload = SET_FPS + fps.to_bytes(1, "big")
         self.ser.write(payload)
         time.sleep(0.01)
@@ -152,23 +178,23 @@ class BGT60Sensor:
             if stop_event is not None and stop_event.is_set():
                 return None, None, None
             
-            # 1. Sync suchen
+            # 1. search Sync
             char = self.ser.read(1)
             if not char or ord(char) != MMWAVE_HEADER:
                 continue
 
-            # 2. Rest des Pakets lesen (243 Bytes)
+            # 2. Read rest of the packte (243 Bytes)
             data = self.ser.read(PACKET_SIZE - 1)
             if len(data) < PACKET_SIZE - 1:
                 continue
 
-            # 3. Trailer prüfen (letztes Byte im gelesenen Block)
+            # 3. Validated Trailer (last Byte in the read Packet)
             if data[242] != MMWAVE_TRAILER:
-                print("Sync verloren - Trailer falsch!")
-                self.frame_chunks = [] # Puffer sicherheitshalber leeren
+                print("Sync Lost - Trailer Wrong!")
+                self.frame_chunks = [] # Empty Buffer for safety
                 continue
 
-            # 4. Metadaten (Bytes 0-5 im 'data' Block)
+            # 4. Metadata (Bytes 0-5 in 'data' Block)
             time_packed, chunk, total_chunks = struct.unpack(">IBB", data[0:6])
             time = time_packed & ~0x01
             sync_state = time_packed & 0x01
@@ -182,56 +208,76 @@ class BGT60Sensor:
                 continue
 
             if time != self.current_time:
-                print(f"Frame-ID Sprung, Frame verworfen.")
+                print(f"TimeStamp Jump, Discarding Frame.")
                 self.frame_chunks = []
                 self.current_time = None
                 self.expected_chunk = 0
                 continue
             
             if chunk != self.expected_chunk:
-                print(f"Chunk verloren: erwartet {self.expected_chunk}, bekommen {chunk}. Frame verworfen.")
+                print(f"Chunk Lost: excpected {self.expected_chunk}, got {chunk}. Frame Discareded.")
                 self.frame_chunks = []
                 self.current_time = None
                 self.expected_chunk = 0
                 continue
 
-            # 5. Nutzdaten sammeln (Bytes 6-241)
+            # 5. Gather Chunck data (Bytes 6-241)
             self.frame_chunks.append(data[6:242])
             self.expected_chunk += 1
 
-            # 6. Wenn Frame komplett
+            # 6. If frame complete
             if chunk + 1 == total_chunks:
                 full_bytes = b"".join(self.frame_chunks)
-                self.frame_chunks = [] # Puffer leeren
+                self.frame_chunks = [] # Empty Buffer
                 self.current_time = None
                 self.expected_chunk = 0
 
-                # Umwandeln in uint16 (Anpassung: Little Endian '<u2' oder Big Endian '>u2')
-                # Wenn dein C-Code einfach uint16_t sendet, ist es meist Little Endian
-                #raw_data = np.frombuffer(full_bytes, dtype='<u2')
-                
-                #MY CHANGES NOW
                 packed_bytes_expected = ((self.SAMPLES_EXPECTED + 1) // 2) * 3
 
-                # Nur die echten Samples nehmen (Padding abschneiden)
+                # Only take expected Data sonce last chunck might be zero padded
                 if len(full_bytes) >= packed_bytes_expected:
                     packed_data = full_bytes[:packed_bytes_expected]
                     frame_data = unpack_12bit_packed(packed_data, self.SAMPLES_EXPECTED)
                     # Reshape in (Chirps, Samples, Antennen)
-                    # Da NUM_RX_ANTENNAS = 1, ist die letzte Dimension 1
+                    # When NUM_RX_ANTENNAS = 1, last Dimension is 1
                     matrix = frame_data.reshape((self.NUM_CHIRPS, self.NUM_SAMPLES, self.NUM_RX_ANTENNAS))
-                    # Transpose zu (Antennen, Chirps, Samples) für das SDK Format
+                    # Transpose to (Antennen, Chirps, Samples), format like it is in the Radar SDK
                     matrix = np.transpose(matrix, (2, 0, 1))
                     return time, sync_state, matrix
                 else:
-                    print(f"Frame unvollständig: {packed_bytes_expected} statt {self.SAMPLES_EXPECTED} Samples")
+                    print(f"Frame Not full: Got {packed_bytes_expected} instead of {self.SAMPLES_EXPECTED} Samples")
                     return None, None, None
 
 
-# ... (Deine BGT60Sensor Klasse bleibt gleich) ...
+# ===========================================================================
+# Wrapper Class to enalble Threading
+# ===========================================================================
+
 
 class BGT60SensorThreaded(BGT60Sensor):
+    """Threaded interface for receiving BGT60 radar frames in the background.
+
+    This class extends `BGT60Sensor` by running frame reception in a separate
+    thread. Received frames are stored in a queue and can be accessed either
+    in FIFO order using `get_next_frame()` or as the most recent frame using
+    `get_latest_frame()`.
+
+    Each returned frame has the format:
+        (timestamp, sync_state, frame_contents)
+
+    where `frame_contents` has shape:
+        (NUM_RX_ANTENNAS, NUM_CHIRPS, NUM_SAMPLES)
+    """
+
     def __init__(self, port, NUM_RX_ANTENNAS, NUM_CHIRPS, NUM_SAMPLES):
+        """Initialize the threaded radar sensor interface.
+
+        Args:
+            port: Serial port connected to the BioGAP BLE/serial interface.
+            NUM_RX_ANTENNAS: Number of active receive antennas.
+            NUM_CHIRPS: Number of chirps per radar frame.
+            NUM_SAMPLES: Number of samples per chirp.
+        """
         super().__init__(port, NUM_RX_ANTENNAS, NUM_CHIRPS, NUM_SAMPLES)
         self.frame_queue = queue.Queue(maxsize=100)
         self.stop_event = threading.Event()
@@ -239,8 +285,18 @@ class BGT60SensorThreaded(BGT60Sensor):
 
 
     def start(self, gain_db=None, tx_power=None, fps=None):
+        """Start radar streaming and launch the background receiver thread.
+
+        Args:
+            gain_db: Optional IF gain setting in dB, defaults to 33dB.
+            tx_power: Optional radar TX power level, defaults to 31.
+            fps: Optional frame rate setting, defaults to defaults to 100fps.
+
+        If the receiver thread is already running, the function returns
+        without starting a second thread.
+        """
         if self.thread is not None and self.thread.is_alive():
-            print("Thread läuft bereits.")
+            print("Thread already running.")
             return
         
         self.stop_event.clear()
@@ -251,6 +307,7 @@ class BGT60SensorThreaded(BGT60Sensor):
         self.thread.start()
 
     def stop(self):
+        """Stop radar streaming and terminate the background receiver thread."""
         self.stop_event.set()
 
         super().stop()
@@ -259,10 +316,15 @@ class BGT60SensorThreaded(BGT60Sensor):
             self.thread.join(timeout=1.0)
 
     def _run(self):
-        """Dieser Loop läuft im Hintergrund und sammelt nur Daten."""
+        """Continuously receive radar frames in the background thread.
+
+        This private method repeatedly calls `get_next_frame_2()` and stores
+        valid frames in `frame_queue`. If the queue is full, the oldest behavior
+        is not changed; the newly received frame is discarded.
+        """
         while not self.stop_event.is_set():
             try:
-                # Nutze get_next_frame_2 (die stabilere Version mit while True)
+
                 time, sync_state, frame_contents = self.get_next_frame_2(self.stop_event)
                 
                 if frame_contents is not None:
@@ -272,16 +334,25 @@ class BGT60SensorThreaded(BGT60Sensor):
                             timeout=0.1
                         )
                     except queue.Full:
-                        print("Warnung: Frame Queue voll, Frame verworfen.")
+                        print("Warning: Frame Queue full, Frame discarded.")
 
 
             except Exception as e:
                 if not self.stop_event.is_set():
-                    print(f"Fehler im Empfangs-Thread: {e}")
+                    print(f"Error in Receiving-Thread: {e}")
                 break
 
+
     def get_next_frame(self):
-        """Holt den nächsten fertigen Frame aus der Queue."""
+        """Return the next available radar frame from the queue.
+
+        Returns:
+            tuple: `(timestamp, sync_state, frame_contents)` if a frame is
+            available, otherwise `(None, None, None)` after a timeout.
+
+        This function preserves frame order and is therefore suited for
+        recording scripts.
+        """
         try:
             return self.frame_queue.get(timeout=1.0)
         except queue.Empty:
@@ -289,7 +360,15 @@ class BGT60SensorThreaded(BGT60Sensor):
     
 
     def get_latest_frame(self):
-        """Holt den neuesten Frame und verwirft ältere Frames."""
+        """Return the newest available radar frame and discard older frames.
+
+        Returns:
+            tuple: `(timestamp, sync_state, frame_contents)` if a frame is
+            available, otherwise `(None, None, None)` after a timeout.
+
+        This function is useful for live visualization, where low latency is
+        more important than processing every single frame.
+        """
         latest = None
 
         try:
@@ -306,6 +385,11 @@ class BGT60SensorThreaded(BGT60Sensor):
         return latest
     
     def clear_queue(self):
+        """Remove all currently buffered frames from the queue.
+
+        This is useful before starting a new recording segment, so that old
+        frames from the previous configuration are discarded.
+        """
         while True:
             try:
                 self.frame_queue.get_nowait()

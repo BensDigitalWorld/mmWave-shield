@@ -26,6 +26,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 # ===========================================================================
 import argparse
+from tools.static_distance_validation.third_party.DistanceAlgo import *
 
 try:
     from ifxradarsdk import get_version_full
@@ -38,7 +39,7 @@ except ImportError as exc:
     ) from exc
 
 
-from third_party.DistanceAlgo import *
+
 # -------------------------------------------------
 # Helpers
 # -------------------------------------------------

@@ -28,9 +28,9 @@
 
 import numpy as np
 from scipy import signal, constants
+from tools.static_distance_validation.third_party.fft_spectrum import *
 
 from ifxradarsdk.fmcw.types import FmcwSequenceChirp
-from fft_spectrum import *
 
 
 class DistanceAlgo:

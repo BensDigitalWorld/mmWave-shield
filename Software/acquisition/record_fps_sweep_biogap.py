@@ -1,10 +1,38 @@
+# -----------------------------------------------------------------------------
+#
+# File: record_fps_sweep_biogap.py
+#
+# Last edited: 22.06.2025
+#
+# Copyright (C) 2026, ETH Zurich
+#
+# Authors:
+# - Benjamin Löliger, ETH Zurich
+#
+# -----------------------------------------------------------------------------
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# -----------------------------------------------------------------------------
+
+
 import numpy as np
 import os
 import time
 import random
 from datetime import datetime
 
-from bgt_com_class import BGT60SensorThreaded
+from acquisition.bgt_com_class import BGT60SensorThreaded
 
 
 # ===========================================================================
@@ -28,8 +56,16 @@ REPETITIONS = 3
 
 SETTLING_TIME_S = 2
 
+# ===========================================================================
+# Make Folder
+# ===========================================================================
+
+
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
-output_folder = f"radar_invivo_fps_sweep_{timestamp}"
+
+output_folder_name = f"radar_fps_sweep_{timestamp}"
+output_folder = os.path.join("data", "biogap_measurments", output_folder_name)
+
 os.makedirs(output_folder, exist_ok=True)
 
 print(f"Ordner erstellt: {output_folder}")
@@ -55,11 +91,6 @@ def print_progress(current, total, width=30):
 def record_config(fps, repetition, order_index):
     target_frames = int(fps * RECORD_TIME_S)
 
-    test_folder = os.path.join(
-        output_folder,
-        f"fps_{fps:03d}_order_{order_index:02d}_rep_{repetition}"
-    )
-    os.makedirs(test_folder, exist_ok=True)
 
     print()
     print("=" * 60)
@@ -93,12 +124,10 @@ def record_config(fps, repetition, order_index):
             fps=fps,
         )
 
-        #print(f"Settling {SETTLING_TIME_S}s...")
-        #time.sleep(SETTLING_TIME_S)
+        print(f"Settling {SETTLING_TIME_S}s...")
+        time.sleep(SETTLING_TIME_S)
 
-        # Falls deine Klasse diese Funktion hat: alte Frames verwerfen
-        if hasattr(sensor, "clear_queue"):
-            sensor.clear_queue()
+        sensor.clear_queue()
 
         print("Recording...")
 
@@ -131,7 +160,7 @@ def record_config(fps, repetition, order_index):
     np.save(os.path.join(output_folder, f"fps_{fps:03d}_order_{order_index:02d}_rep_{repetition}_sync_state.npy"), sync_buffer)
 
 
-    print(f"Saved: {test_folder}/data.npy")
+    print(f"Saved: {output_folder}/data.npy")
     print(f"Shape: {data_buffer.shape}")
     print(f"Time: {stop_t - start_t:.2f}s")
 

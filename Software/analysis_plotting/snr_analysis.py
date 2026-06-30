@@ -1,3 +1,30 @@
+# -----------------------------------------------------------------------------
+#
+# File: snr_analysis.py
+#
+# Last edited: 25.06.2025
+#
+# Copyright (C) 2026, ETH Zurich
+#
+# Authors:
+# - Benjamin Löliger, ETH Zurich
+#
+# -----------------------------------------------------------------------------
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# -----------------------------------------------------------------------------
+
 import os
 import re
 import numpy as np
@@ -11,29 +38,34 @@ from scipy.signal import butter, filtfilt
 # CONFIG
 # ============================================================
 
-OUTPUT_FOLDER = "snr_vs_fps_output"
+
+OUTPUT_FOLDER_NAME = "snr_vs_fps_output"
+OUTPUT_FOLDER = os.path.join("plots", OUTPUT_FOLDER_NAME)
+
+INPUT_ROOT = os.path.join("data", "biogap_measurments", "radar_fps_sweep")
+
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 # Each folder contains ONE measurement condition.
 # Adjust these paths and labels.
 EXPERIMENTS = [
     {
-        "folder": r"radar_invivo_fps_sweep_2026-05-22_18-28",
+        "folder": os.path.join(INPUT_ROOT, "radar_invivo_fps_sweep_2026-05-22_18-28"),
         "site": "wrist",
         "gain": 18,
     },
     {
-        "folder": r"radar_invivo_fps_sweep_2026-05-22_17-14",
+        "folder": os.path.join(INPUT_ROOT,"radar_invivo_fps_sweep_2026-05-22_17-14"),
         "site": "wrist",
         "gain": 33,
     },
         {
-        "folder": r"radar_invivo_fps_sweep_2026-05-22_17-51",
+        "folder": os.path.join(INPUT_ROOT,"radar_invivo_fps_sweep_2026-05-22_17-51"),
         "site": "temple",
         "gain": 18,
     },
         {
-        "folder": r"radar_invivo_fps_sweep_2026-05-22_17-28",
+        "folder": os.path.join(INPUT_ROOT,"radar_invivo_fps_sweep_2026-05-22_17-28"),
         "site": "temple",
         "gain": 33,
     },

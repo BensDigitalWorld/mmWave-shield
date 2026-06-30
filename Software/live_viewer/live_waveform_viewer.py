@@ -1,13 +1,44 @@
+# -----------------------------------------------------------------------------
+#
+# File: live_waveform_viewer.py
+#
+# Last edited: 30.06.2025
+#
+# Copyright (C) 2026, ETH Zurich
+#
+# Authors:
+# - Benjamin Löliger, ETH Zurich
+#
+# -----------------------------------------------------------------------------
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# -----------------------------------------------------------------------------
+
+
+
 import sys
 import time
 import numpy as np
 from threading import Thread, Event, Lock
 
 from scipy.signal import butter, filtfilt, find_peaks
+
+
 from PyQt5 import QtWidgets, QtCore
 import pyqtgraph as pg
 
-from bgt_com_class import BGT60SensorThreaded
+from acquisition.bgt_com_class import BGT60SensorThreaded
 
 
 # =========================
@@ -759,6 +790,9 @@ class RadarVisualizer(QtWidgets.QMainWindow):
 
 
 if __name__ == "__main__":
+
+    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_DisableHighDpiScaling, True)
+    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_Use96Dpi, True)    
     app = QtWidgets.QApplication(sys.argv)
 
     window = RadarVisualizer()

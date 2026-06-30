@@ -1,13 +1,46 @@
+# -----------------------------------------------------------------------------
+#
+# File: measure_biogap_single_session.py
+#
+# Last edited: 22.06.2025
+#
+# Copyright (C) 2026, ETH Zurich
+#
+# Authors:
+# - Benjamin Löliger, ETH Zurich
+#
+# -----------------------------------------------------------------------------
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# -----------------------------------------------------------------------------
+
 import numpy as np
 import os
 import time
 from datetime import datetime
 
-from bgt_com_class import BGT60SensorThreaded
+from acquisition.bgt_com_class import BGT60SensorThreaded
 
+
+# ===========================================================================
+# Make Folder
+# ===========================================================================
 
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
-output_folder = f"radar_session_{timestamp}"
+output_folder_name = f"radar_and_finapress_session_{timestamp}"
+
+output_folder = os.path.join("data", "biogap_measurments", output_folder_name)
 
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
@@ -17,9 +50,11 @@ if not os.path.exists(output_folder):
 # TEST CONFIGS
 # ===========================================================================
 
+SERIAL_PORT = 'COM4'
 RECORD_TIME_S = 30
 NUM_RX_ANTENNAS = 1
 if_gain_dB = 33
+TX_POWER = 31
 FPS = 100
 CHIRPS = 32
 SAMPLES = 8
@@ -44,13 +79,13 @@ def print_progress(current, total, width=30):
 
 if __name__ == '__main__':
 
-    # 3. PRE-ALLOCATION for more speeeed
+    # PRE-ALLOCATION for more speeeed
     num_frames = int(FPS * RECORD_TIME_S)
 
     data_buffer = np.zeros((num_frames, NUM_RX_ANTENNAS, CHIRPS, SAMPLES), dtype=np.float32)
     time_stamps = np.zeros(num_frames , dtype=np.uint32)
     sensor = BGT60SensorThreaded(
-                port='COM4',
+                port= SERIAL_PORT,
                 NUM_RX_ANTENNAS=NUM_RX_ANTENNAS,
                 NUM_CHIRPS=CHIRPS,
                 NUM_SAMPLES=SAMPLES)
@@ -59,11 +94,11 @@ if __name__ == '__main__':
     timeouts = 0
 
 
-    print(f"Aufnahme von {num_frames} Frames läuft...")
+    print(f"Recording of {num_frames} frames started...")
 
-    sensor.start(gain_db=None)
+    sensor.start(gain_db=if_gain_dB,tx_power=TX_POWER, fps=FPS)
 
-    # 4. Data collection
+    # Data collection
     start_t = time.time()
     try:
         while valid_frames < num_frames:
@@ -72,7 +107,7 @@ if __name__ == '__main__':
                 dropped_frames += 1
                 print("Kein gültiger Frame erhalten.")
                 continue
-            # frame_contents[0] enthält die Daten aller RX-Antennen
+            # frame_contents[0] the data of all RX-Antennas
             data_buffer[valid_frames] = frame_content
             time_stamps[valid_frames] = time_stamp
             valid_frames += 1
@@ -89,10 +124,7 @@ if __name__ == '__main__':
         sensor.stop()
         sensor.close()
 
-        # 5. Saving
-        filename = f"data.npy"
-        # os.path.join verbindet Ordnername und Dateiname sicher (unabhängig von Windows/Linux)
-    
+        # Saving
         np.save(os.path.join(output_folder, "data.npy"), data_buffer)
         np.save(os.path.join(output_folder, "time_stamps.npy"), time_stamps)
 

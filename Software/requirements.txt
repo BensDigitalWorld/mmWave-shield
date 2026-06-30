@@ -1,2 +1,12 @@
 numpy
 scipy
+pyserial
+
+PyQt5
+pyqtgraph
+
+pandas
+matplotlib
+
+ipykernel
+plotly
