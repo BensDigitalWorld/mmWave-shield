@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+
 description: Infineon BGT60TR13C Radar Sensor
 
 compatible: "infineon,bgt60tr13c"

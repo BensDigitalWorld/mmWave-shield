@@ -3,9 +3,16 @@
  *
  * File: battery.c
  *
- * Last edited: 02.01.2026
+ * Last edited: 01.07.2026
  *
  * Copyright (C) 2026, ETH Zurich and University of Bologna.
+ *
+ *
+ * Modified by:
+ * - Benjamin Löliger, ETH Zurich
+ *
+ * Modifications: 
+ * - Disabled battery monitoring due to unresolved pin conflict
  *
  * ----------------------------------------------------------------------
  * SPDX-License-Identifier: Apache-2.0

@@ -3,12 +3,18 @@
  *
  * File: ble_appl.c
  *
- * Last edited: 23.07.2025
+ * Last edited: 1.07.2026
  *
  * Copyright (C) 2025, ETH Zurich
  *
  * Authors:
  * - Sebastian Frey (sefrey@iis.ee.ethz.ch), ETH Zurich
+ *
+ * Modified by:
+ * - Benjamin Löliger, ETH Zurich
+ *
+ * Modifications: 
+ * - added cases for mmWave functionalites in handle_ble_command();
  *
  * ----------------------------------------------------------------------
  * SPDX-License-Identifier: Apache-2.0

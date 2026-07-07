@@ -1,3 +1,43 @@
+/*
+ * -----------------------------------------------------------------------------
+ *
+ * File: sensor_stubs.c
+ *
+ * Copyright (C) 2026, ETH Zurich
+ *
+ * Authors:
+ * - Benjamin Löliger, ETH Zurich
+ *
+ * -----------------------------------------------------------------------------
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the License); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * -----------------------------------------------------------------------------
+ */
+
+/**
+ * @file sensor_stubs.c
+ * @brief Weak stub implementations for unused sensor modules.
+ *
+ * This file provides weak fallback definitions for sensor-related functions that
+ * may be referenced by the existing BioGAP firmware structure but are not used
+ * in the mmWave firmware variant.
+ *
+ * The stubs avoid linker errors when unused sensor modules are disabled in the
+ * build configuration. If the corresponding real sensor implementation is
+ * compiled, it overrides the weak definition provided here.
+ */
+
 #include "sensors/eeg/eeg_appl.h"
 #include "sensors/imu/imu_appl.h"
 #include "sensors/mic/mic_appl.h"

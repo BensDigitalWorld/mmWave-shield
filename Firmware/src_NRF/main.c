@@ -3,12 +3,18 @@
  *
  * File: main.c
  *
- * Last edited: 30.10.2025
+ * Last edited: 1.7.2026
  *
  * Copyright (c) 2024 ETH Zurich and University of Bologna
  *
  * Authors:
  * - Philip Wiese (wiesep@iis.ee.ethz.ch), ETH Zurich
+ *
+ * Modified by:
+ * - Benjamin Löliger, ETH Zurich
+ *
+ * Modifications:
+ * - Added mmWave HW init to the main init
  *
  * ----------------------------------------------------------------------
  * SPDX-License-Identifier: Apache-2.0

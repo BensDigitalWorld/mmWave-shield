@@ -3,6 +3,11 @@
 #
 # SPDX-License-Identifier: LicenseRef-Nordic-5-Clause
 #
+# Modified by:
+# - Benjamin Löliger, ETH Zurich
+#
+# Modifications:
+# - Added build-time configuration options for optional sensor modules.
 
 source "Kconfig.zephyr"
 
@@ -65,29 +70,31 @@ config SENSOR_PPG
 	bool "PPG sensor"
 	default n
 	help
-	  Enable support for EEG sensor. This will include the necessary drivers,
-	  state machine states, and data processing for EEG data acquisition.
+	  Enable support for the PPG sensor. This includes the required drivers,
+	  application logic, and data handling for PPG data acquisition.
 
 config SENSOR_IMU
 	bool "IMU sensor"
 	default n
 	help
-	  Enable support for EEG sensor. This will include the necessary drivers,
-	  state machine states, and data processing for EEG data acquisition.
+	  Enable support for the IMU sensor. This includes the required drivers,
+	  application logic, and data handling for inertial data acquisition.
 
 config SENSOR_MIC
-	bool "MIC sensor"
+	bool "Microphone sensor"
 	default n
 	help
-	  Enable support for EEG sensor. This will include the necessary drivers,
-	  state machine states, and data processing for EEG data acquisition.
+	  Enable support for the microphone sensor. This includes the required
+	  drivers, application logic, and data handling for microphone data
+	  acquisition.
 
 config SENSOR_MMWAVE
-	bool "mmWave sensor"
+	bool "mmWave radar sensor"
 	default n
 	help
-	  Enable support for EEG sensor. This will include the necessary drivers,
-	  state machine states, and data processing for EEG data acquisition.
+	  Enable support for the mmWave radar sensor. This includes the required
+	  drivers, application logic, radar configuration, and raw radar data
+	  streaming.
 
 menu "State Machine Configuration"
 

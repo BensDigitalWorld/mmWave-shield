@@ -3,13 +3,20 @@
  *
  * File: pwr_bsp.c
  *
- * Last edited: 19.06.2024
+ * Last edited: 1.07.2026
  *
  * Copyright (C) 2024, ETH Zurich and University of Bologna.
  *
  * Authors:
  * - Philip Wiese (wiesep@iis.ee.ethz.ch), ETH Zurich
  * - Sebastian Frey (sefrey@iis.ee.ethz.ch), ETH Zurich
+ *
+ * Modified by:
+ * - Benjamin Löliger, ETH Zurich
+ *
+ * Modifications: 
+ * - Changed VD2 (sbb_conf[2]) to output 3V3
+ *
  * ----------------------------------------------------------------------
  * SPDX-License-Identifier: Apache-2.0
  *

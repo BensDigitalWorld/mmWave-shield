@@ -11,6 +11,14 @@
  *   - DATA: P0.12 (microphone data output)
  *   - VDD: 1.8V or 3.3V (depending on your microphone)
  *   - GND: Ground
+ *
+ * Modified by:
+ * - Benjamin Löliger, ETH Zurich
+ *
+ * Modifications:
+ * - Disabled the PDM microphone pin configuration for the mmWave firmware
+ *   variant because the microphone pins conflict with GPIOs used by the
+ *   mmWave shield.
  */
 
 &clock {
@@ -33,6 +41,10 @@
     };
 };
 
+/*
+ * PDM microphone configuration disabled for the mmWave firmware variant.
+ * The original PDM CLK/DATA pins conflict with GPIOs used by the mmWave shield.
+ */
 /*
 &pinctrl {
     pdm_default: pdm_default {

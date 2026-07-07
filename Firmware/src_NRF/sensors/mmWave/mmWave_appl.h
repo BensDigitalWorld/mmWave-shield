@@ -1,10 +1,44 @@
+/*
+ * -----------------------------------------------------------------------------
+ *
+ * File: mmwave_appl.h
+ *
+ * Copyright (C) 2026, ETH Zurich
+ *
+ * Authors:
+ * - Benjamin Löliger, ETH Zurich
+ *
+ * -----------------------------------------------------------------------------
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the License); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * -----------------------------------------------------------------------------
+ */
+
+/**
+ * @file mmwave_appl.h
+ * @brief Public interface for the mmWave radar application layer.
+ *
+ * This header defines the mmWave device states and declares the public
+ * control functions used to initialize, configure, and control the BGT60TR13C
+ * mmWave radar sensor.
+ */
+
 #ifndef MMWAVE_APPL_H
 #define MMWAVE_APPL_H
 
 #include <stdbool.h>
 #include <stdint.h>
-
-
 
 /*==============================================================================
  * Type Definitions
@@ -137,7 +171,24 @@ int mmWave_set_txPower(uint8_t txPower);
 
 
 
-
+/**
+ * @brief Change the radar frame rate.
+ *
+ * Updates the configured frame rate used by the mmWave radar.
+ *
+ * If the device has already been configured, this function attempts to
+ * reconfigure the device with the new frame rate and stores the value for
+ * future configuration calls.
+ *
+ * If the device has not been configured yet, this function only stores the new
+ * frame rate. The value will then be applied during the next configuration.
+ *
+ * @param fps Frame rate in frames per second.
+ *
+ * @return 0 on success.
+ * @return -EINVAL if the frame rate is not supported.
+ * @return Negative error code on other failures.
+ */
 int mmWave_set_fps(uint8_t fps);
 
 

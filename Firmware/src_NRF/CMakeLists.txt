@@ -1,5 +1,17 @@
+# -----------------------------------------------------------------------------
+#
 # Copyright (c) 2024 ETH Zurich
+#
+# Modified by:
+# - Benjamin Löliger, ETH Zurich
+#
+# Modifications:
+# - Added configuration-dependent sensor source inclusion.
+# - Added mmWave radar firmware sources.
+#
 # SPDX-License-Identifier: Apache-2.0
+# -----------------------------------------------------------------------------
+
 
 cmake_minimum_required(VERSION 3.20.0)
 

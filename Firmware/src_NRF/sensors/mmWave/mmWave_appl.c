@@ -1,3 +1,39 @@
+/*
+ * -----------------------------------------------------------------------------
+ *
+ * File: mmwave_appl.c
+ *
+ * Copyright (C) 2026, ETH Zurich
+ *
+ * Authors:
+ * - Benjamin Löliger, ETH Zurich
+ *
+ * -----------------------------------------------------------------------------
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the License); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * -----------------------------------------------------------------------------
+ */
+
+/**
+ * @file mmwave_appl.c
+ * @brief mmWave radar application layer implementation.
+ *
+ * This module implements the high-level control logic for the BGT60TR13C
+ * mmWave radar sensor, including hardware initialization, power control,
+ * radar configuration, parameter updates, and streaming control.
+ */
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <zephyr/sys/__assert.h>
@@ -11,7 +47,6 @@
 #include <zephyr/irq.h>
 #include <zephyr/sys/atomic.h>
 
-
 // Include BLE application header for packet transmission
 #include "ble/ble_appl.h"
 #include "bsp/pwr_bsp.h"
@@ -21,6 +56,13 @@
 #include "sensors/mmWave/driver/xensiv_bgt60trxx.h"
 
 #define XENSIV_BGT60TRXX_CONF_IMPL
+
+/* Include the register header file here */
+//include "sensors/mmWave/driver/25fps.h"
+//include "sensors/mmWave/driver/50fps.h"
+//include "sensors/mmWave/driver/100fps.h"
+//include "sensors/mmWave/driver/150fps.h"
+//include "sensors/mmWave/driver/200fps.h"
 //include "sensors/mmWave/driver/static_distance.h"
 #include "sensors/mmWave/driver/100fsp_32chirps_8samples_2000kHz.h"
 
@@ -31,39 +73,47 @@ LOG_MODULE_REGISTER(mmWave_appl, LOG_LEVEL_INF);
  * Private Definitions
  *============================================================================*/
 
+/** @brief Stack size of the mmWave streaming thread in bytes. */
 #define mmWave_THREAD_STACK_SIZE 8192
 
+/** @brief Thread priority of the mmWave streaming thread. */
 #define mmWave_PRIORITY 6
 
+/** @brief Enables BGT60TR13C internal test-pattern validation. */
 #define TESTMODE false
 
+/** @brief Selects packed 12-bit BLE transmission instead of 16-bit samples. */
 #define MMWAVE_SEND_PACKED_12BIT true
 
-
+/** @brief Number of ADC samples contained in one radar frame. */
 #define NUM_SAMPLES_PER_FRAME   (XENSIV_BGT60TRXX_CONF_NUM_RX_ANTENNAS * \
                                 XENSIV_BGT60TRXX_CONF_NUM_CHIRPS_PER_FRAME * \
                                 XENSIV_BGT60TRXX_CONF_NUM_SAMPLES_PER_CHIRP)
 
 
-#define FRAME_SIZE_BYTES NUM_SAMPLES_PER_FRAME * sizeof(uint16_t)
-
+/** @brief Unpacked frame size in bytes when samples are sent as uint16_t. */
 #define FRAME_SIZE_BYTES_U16       (NUM_SAMPLES_PER_FRAME * sizeof(uint16_t))
+
+/** @brief Packed frame size in bytes for 12-bit ADC samples. */
 #define FRAME_SIZE_BYTES_PACKED    ((NUM_SAMPLES_PER_FRAME * 3U) / 2U)
 
+/*Helpers for manipulating the register values and sending them via SPI to the Sensor*/
 #define XENSIV_BGT60TRXX_SPI_REGADR_MSK                 (0xFE000000UL)
 #define XENSIV_BGT60TRXX_SPI_REGADR_POS                 (25U)
 #define XENSIV_BGT60TRXX_SPI_DATA_MSK                   (0x00FFFFFFUL)
 #define XENSIV_BGT60TRXX_SPI_DATA_POS                   (0U)
 
+#define TX_POWER_MASK 0x1F
+
+/*MMWave BLE Packet defines for generating a payload*/
 #define MMWAVE_HEADER       0xAA
 #define MMWAVE_TRAILER      0x55
 #define MMWAVE_HEADER_SIZE  8   // header + frame_idx + chunk + total + trailer
 #define MMWAVE_DATA_SIZE    (BLE_PCKT_MAX_SIZE - MMWAVE_HEADER_SIZE) 
 
-#define TX_POWER_MASK 0x1F
 
-
-const uint32_t fps_reg0x06[] = {
+/** @brief Register 0x06 values for supported radar frame rates. */
+static const uint32_t fps_reg0x06[] = {
   0x0d10207fUL, //0: 25fps
   0x0d1020ffUL, //1: 50fps
   0x0d1021ffUL, //2: 100fps
@@ -71,7 +121,8 @@ const uint32_t fps_reg0x06[] = {
   0x0d1024ffUL  //4: 200fps
 };
 
-const uint32_t fps_reg0x2d[] = {
+/** @brief Register 0x02 values for supported radar frame rates. */
+static const uint32_t fps_reg0x2d[] = {
   0x5b5de40aUL, // 0: 25fps
   0x5b616c0aUL, // 1: 50fps
   0x5b4d2c0aUL, // 2: 100fps
@@ -79,7 +130,8 @@ const uint32_t fps_reg0x2d[] = {
   0x5b4a1c0aUL  // 4: 200fps
 };
 
-const uint32_t if_gain_regs[] = {
+/** @brief BGT60TR13C IF gain register values for the supported gain settings. */
+static const uint32_t if_gain_regs[] = {
     0x25700c63UL, // 0: 18 dB
     0x25701ce7UL, // 1: 23 dB
     0x25702d6bUL, // 2: 28 dB
@@ -103,40 +155,46 @@ const uint32_t if_gain_regs[] = {
  * Private Variables
  *============================================================================*/
 
-/** @brief Current mmWave state */
+/** @brief Current state of the mmWave application state machine. */
 static volatile mmWave_state_t mmWave_state = mmWave_STATE_NO_HW;
 
-/** @brief default ifGain config at boot */
+/** @brief Currently selected IF gain register value. */
 static uint32_t current_selected_gain_reg = 0x25703defUL;
 
+/** @brief Currently selected TX power register value. */
 static uint32_t current_tx_power_reg = 0x231ff41fUL;
 
+/** @brief Currently selected frame-rate register value for register 0x06. */
 static uint32_t current_fps_reg06 = 0x0d1021ffUL;
+/** @brief Currently selected frame-rate register value for register 0x02. */
 static uint32_t current_fps_reg2d = 0x5b4d2c0aUL;
 
 
-/** @brief Flag to signal streaming thread to stop */
+/** @brief Controls whether the streaming loop should continue running. */
 static volatile bool mmWave_keep_running = false;
 
-/** @brief Semaphore to signal start of streaming */
+/** @brief Semaphore used to start the mmWave streaming thread. */
 static K_SEM_DEFINE(mmWave_start_sem, 0, 1);
 
-/** @brief Semaphore as data ready flag */
+/** @brief Semaphore signaled by the radar data-ready interrupt. */
 static K_SEM_DEFINE(data_ready_mmWave_sem, 0, 1);
 
+/** @brief Temporary buffer for packed 12-bit radar FIFO data. */
 static uint8_t raw_bytes[FRAME_SIZE_BYTES_PACKED] __aligned(4);
 
+/** @brief GPIO callback data structure for the BGT60TR13C data-ready interrupt. */
 static struct gpio_callback irq_cb_data;
 
+/** @brief BLE transmission buffer for one complete mmWave data packet. */
 static uint8_t mmWave_tx_buf[MMWAVE_DATA_SIZE + MMWAVE_HEADER_SIZE];
 
-
-
+/** @brief Unpacked radar sample buffer for one complete frame. */
 static uint16_t samples[NUM_SAMPLES_PER_FRAME];
 
+/** @brief Timestamp inserted into outgoing mmWave BLE packets. */
 static uint32_t bgt_packet_timestamp = 0;
 
-
+/** @brief BGT60TR13C driver instance. */
 xensiv_bgt60trxx_t dev;
 
 //GPIOS
@@ -145,12 +203,9 @@ static const struct gpio_dt_spec rst_pin = GPIO_DT_SPEC_GET(DT_NODELABEL(bgt60),
 static const struct gpio_dt_spec pwr_pin = GPIO_DT_SPEC_GET(DT_NODELABEL(bgt60), power_gpios);
 static const struct gpio_dt_spec cs_pin  = GPIO_DT_SPEC_GET(DT_NODELABEL(bgt60), manual_cs_gpios);
 
-
 //SPI
 #define SPI_CONFIG		        SPI_WORD_SET(8) | SPI_TRANSFER_MSB
 static const struct spi_dt_spec spi_cfg = SPI_DT_SPEC_GET(DT_NODELABEL(bgt60), SPI_CONFIG,0);
-
-
 
 
 /*==============================================================================
@@ -237,7 +292,7 @@ void xensiv_bgt60trxx_platform_assert(bool expr)
 }
 
 /*==============================================================================
- * Private Functions
+ * Addon, Sync Signal Generator
  *============================================================================*/
 
 
@@ -332,8 +387,15 @@ void finapres_sync_stop(void)
     LOG_INF("Finapres sync stopped");
 }
 
+/*==============================================================================
+ * Private Functions
+ *============================================================================*/
 
-
+/**
+ * @brief GPIO interrupt callback for the BGT60TR13C data-ready signal.
+ *
+ * Signals the streaming thread that a new radar frame can be read from the FIFO.
+ */
 static void bgt60tr13c_irq_callback(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
 {   
   ARG_UNUSED(dev);
@@ -344,35 +406,15 @@ static void bgt60tr13c_irq_callback(const struct device *dev, struct gpio_callba
 }
 
 
-static void mmwave_send_frame() {
-  uint8_t *data = (uint8_t *)samples;
-  uint8_t total_chunks = (FRAME_SIZE_BYTES_U16 + MMWAVE_DATA_SIZE - 1) / MMWAVE_DATA_SIZE;
-
-  bgt_packet_timestamp = k_cyc_to_us_floor32(k_cycle_get_32());
-
-  mmWave_tx_buf[0]   = MMWAVE_HEADER;
-  mmWave_tx_buf[1]   = (uint8_t)(bgt_packet_timestamp >> 24) & 0xFF;
-  mmWave_tx_buf[2]   = (uint8_t)(bgt_packet_timestamp >> 16) & 0xFF;
-  mmWave_tx_buf[3]   = (uint8_t)(bgt_packet_timestamp >>  8) & 0xFF;
-  mmWave_tx_buf[4]   = (uint8_t)(bgt_packet_timestamp      ) & 0xFF;
-  mmWave_tx_buf[6]   = total_chunks;
-  mmWave_tx_buf[243] = MMWAVE_TRAILER;
-        
-
-  for (uint8_t chunk = 0; chunk < total_chunks; chunk++) {
-    uint32_t offset = chunk * MMWAVE_DATA_SIZE;
-    uint32_t chunk_len = MIN(MMWAVE_DATA_SIZE, FRAME_SIZE_BYTES_U16 - offset);
-
-    mmWave_tx_buf[5] =  chunk;
-    memcpy(&mmWave_tx_buf[7], &data[offset], chunk_len);
-
-    if (chunk_len < MMWAVE_DATA_SIZE) {
-      memset(&mmWave_tx_buf[7 + chunk_len], 0, MMWAVE_DATA_SIZE - chunk_len);
-    }
-    add_data_to_send_buffer(mmWave_tx_buf, 244);
-  }
-}   
-
+/**
+ * @brief Send a raw payload over BLE using the mmWave packet format.
+ *
+ * Splits the payload into BLE-sized chunks and adds the mmWave packet header,
+ * timestamp, chunk index, total chunk count, and trailer.
+ *
+ * @param data Pointer to the payload data.
+ * @param data_len Payload length in bytes.
+ */
 static void mmwave_send_payload(const uint8_t *data, uint32_t data_len)
 {
     uint8_t total_chunks = (data_len + MMWAVE_DATA_SIZE - 1U) / MMWAVE_DATA_SIZE;
@@ -406,24 +448,33 @@ static void mmwave_send_payload(const uint8_t *data, uint32_t data_len)
     }
 }
 
+
+/**
+ * @brief Send the current radar frame as unpacked uint16_t samples.
+ */
 static void mmwave_send_frame_u16(void)
 {
     mmwave_send_payload((const uint8_t *)samples, FRAME_SIZE_BYTES_U16);
 }
 
+
+/**
+ * @brief Send the current radar frame as packed 12-bit ADC samples.
+ */
 static void mmwave_send_frame_packed(void)
 {
     mmwave_send_payload((const uint8_t *)raw_bytes, FRAME_SIZE_BYTES_PACKED);
 }
 
 
-//adjusingt tx power is register 11 lowest 5 bits -> simple to implement
-// uint32_t regValue;
-// xensiv_bgt60trxx_get_reg(dev, 0x11U, &regValue);
-// regValue &= 0xFFFF_FFE0;
-// regValue |= 0x1F; //(for 31 or use 0x10 for 16...)
-// xensiv_bgt60trxx_set_reg(dev, 0x11U, regValue);
-static void mmWave_sync_gain_from_header(void) {
+/**
+ * @brief Synchronize configurable register values with the generated header.
+ *
+ * Reads the default IF gain, TX power, and frame-rate register values from the
+ * generated BGT60TR13C register list so later runtime updates modify the correct
+ * base values.
+ */
+static void mmWave_sync_config_from_header(void) {
   for (int i = 0; i < XENSIV_BGT60TRXX_CONF_NUM_REGS; i++) {
     uint8_t addr = (uint8_t)(register_list[i] >> 25);
     
@@ -452,6 +503,19 @@ static void mmWave_sync_gain_from_header(void) {
   LOG_WRN("Gain Register 0x12 not found in header, using hardcoded default.");
 }
 
+
+/**
+ * @brief Apply one full BGT60TR13C register value to the hardware.
+ *
+ * Extracts the register address and data field from the packed register value
+ * used in the generated configuration header.
+ *
+ * @param dev Pointer to the BGT60TR13C driver instance.
+ * @param full_reg Packed register value containing address and data.
+ *
+ * @return XENSIV_BGT60TRXX_STATUS_OK on success.
+ * @return XENSIV_BGT60TRXX_STATUS_COM_ERROR on communication failure.
+ */
 static int mmWave_apply_reg_to_hw(xensiv_bgt60trxx_t* dev, uint32_t full_reg) {
 
   uint32_t reg_addr = ((full_reg & XENSIV_BGT60TRXX_SPI_REGADR_MSK) >>
@@ -470,6 +534,9 @@ static int mmWave_apply_reg_to_hw(xensiv_bgt60trxx_t* dev, uint32_t full_reg) {
 }
 
 
+/**
+ * @brief Apply the currently selected IF gain register value to the radar.
+ */
 static int mmWave_apply_gain_to_hw(xensiv_bgt60trxx_t* dev) {
 
   uint32_t full_reg = current_selected_gain_reg;
@@ -477,6 +544,10 @@ static int mmWave_apply_gain_to_hw(xensiv_bgt60trxx_t* dev) {
   return mmWave_apply_reg_to_hw(dev, full_reg);
 }
 
+
+/**
+ * @brief Apply the currently selected TX power register value to the radar.
+ */
 static int mmWave_apply_tx_power_to_hw(xensiv_bgt60trxx_t* dev) {
 
   uint32_t full_reg = current_tx_power_reg;
@@ -484,6 +555,9 @@ static int mmWave_apply_tx_power_to_hw(xensiv_bgt60trxx_t* dev) {
   return mmWave_apply_reg_to_hw(dev, full_reg);
 }
 
+/**
+ * @brief Apply the currently selected frame-rate register values to the radar.
+ */
 static int mmWave_apply_fps_to_hw(xensiv_bgt60trxx_t* dev) {
 
   uint32_t full_reg = current_fps_reg06;
@@ -498,7 +572,7 @@ static int mmWave_apply_fps_to_hw(xensiv_bgt60trxx_t* dev) {
 
   ret = mmWave_apply_reg_to_hw(dev, full_reg);
   if (ret != XENSIV_BGT60TRXX_STATUS_OK) {
-    LOG_ERR("Failed to apply FPS register 0x06: %d", ret);
+    LOG_ERR("Failed to apply FPS register 0x02: %d", ret);
     return ret;
   }
 
@@ -506,8 +580,13 @@ static int mmWave_apply_fps_to_hw(xensiv_bgt60trxx_t* dev) {
 }
 
 
-
-
+/**
+ * @brief Main mmWave streaming thread.
+ *
+ * Waits for a start signal, starts radar frame acquisition, reads frames on each
+ * data-ready interrupt, and forwards the received data over BLE until streaming
+ * is stopped.
+ */
 static void mmWave_streaming_thread(void *arg1, void *arg2, void *arg3) {
   ARG_UNUSED(arg1);
   ARG_UNUSED(arg2);
@@ -672,7 +751,7 @@ int mmWave_HW_init() {
     return ret;
   }
 
-  mmWave_sync_gain_from_header();
+  mmWave_sync_config_from_header();
 
   mmWave_state = mmWave_STATE_HW_ACTIVE; 
   return 0;
@@ -693,7 +772,7 @@ int mmWave_power_on() {
   gpio_pin_configure_dt(&pwr_pin, GPIO_OUTPUT_ACTIVE);
   gpio_pin_set_dt(&pwr_pin, 1);
 
-  //Peform HARD RST
+  /* Perform hard reset. */
   k_msleep(5);
   gpio_pin_set_dt(&cs_pin,  0);
   gpio_pin_set_dt(&rst_pin, 0);
@@ -718,7 +797,7 @@ int mmWave_power_on() {
 int mmWave_configure() {
 
   if(mmWave_state != mmWave_STATE_IDLE && mmWave_state != mmWave_STATE_CONFIGURED) {
-    LOG_ERR("Device not Ready, already configuerd or streaming");
+    LOG_ERR("Device not ready for configuration");
     return -EPERM;
   }
 
@@ -767,7 +846,7 @@ int mmWave_power_off() {
     return -EPERM;
   }
 
-  //disable interupt
+  /* Disable interrupt. */
   gpio_pin_interrupt_configure_dt(&irq_pin, GPIO_INT_DISABLE);
 
   //disable all power, also to gpios
@@ -834,8 +913,8 @@ int mmWave_set_txPower(uint8_t txPower) {
     return -EINVAL;
   }
 
-  current_tx_power_reg &= ~TX_POWER_MASK;           // untere 5 Bits löschen
-  current_tx_power_reg |= (txPower & TX_POWER_MASK); // neue txPower setzen
+  current_tx_power_reg &= ~TX_POWER_MASK;             /* Clear lower 5 bits. */
+  current_tx_power_reg |= (txPower & TX_POWER_MASK);  /* Set new TX power. */
 
   if (mmWave_state == mmWave_STATE_CONFIGURED) {
     int ret = mmWave_apply_tx_power_to_hw(&dev);

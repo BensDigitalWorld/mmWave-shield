@@ -1,6 +1,9 @@
 # mmWave-shield
 mmWave Sensor, for BP measurments, Shield for the BioGap9 Platform 
 
+## TO-DO
+-Clean up jpyter notebook
+-Add docs for fw changes made
 
 ## Authors
 

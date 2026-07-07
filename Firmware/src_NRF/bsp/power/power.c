@@ -3,9 +3,15 @@
  *
  * File: power.c
  *
- * Last edited: 05.01.2026
+ * Last edited: 01.07.2026
  *
  * Copyright (C) 2026, ETH Zurich and University of Bologna.
+ *
+ * Modified by:
+ * - Benjamin Löliger, ETH Zurich
+ *
+ * Modifications: 
+ * - Added code so no issues arise when using mmWave instead of EEG or EMG
  *
  * ----------------------------------------------------------------------
  * SPDX-License-Identifier: Apache-2.0

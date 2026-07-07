@@ -1,4 +1,29 @@
-#ifndef XENSIV_BGT60TRXX_CONF_H
+/*
+ * -----------------------------------------------------------------------------
+ *
+ * File: 200fps.h
+ *
+ * Generated file.
+ *
+ * This file contains BGT60TR13C register configuration values generated with an
+ * Infineon radar configuration tool.
+ *
+ * The file was generated for the BioGAP mmWave radar project and is used by the
+ * firmware to configure the BGT60TR13C sensor.
+ *
+ * Generated/added by:
+ * - Benjamin Löliger, ETH Zurich
+ *
+ * Tool/source:
+ * - XENSIV Radar Fusion GUI
+ *
+ * License:
+ * - See the Infineon Radar SDK / tool license terms for generated files.
+ *
+ * -----------------------------------------------------------------------------
+ */
+ 
+ #ifndef XENSIV_BGT60TRXX_CONF_H
 #define XENSIV_BGT60TRXX_CONF_H
 
 #define XENSIV_BGT60TRXX_CONF_DEVICE (XENSIV_DEVICE_BGT60TR13C)

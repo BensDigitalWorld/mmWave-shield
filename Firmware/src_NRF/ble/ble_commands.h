@@ -3,12 +3,18 @@
  *
  * File: ble_commands.h
  *
- * Last edited: 06.01.2026
+ * Last edited: 01.07.2026
  *
  * Copyright (C) 2026, ETH Zurich
  *
  * Authors:
  * - Sebastian Frey (sefrey@iis.ee.ethz.ch), ETH Zurich
+ *
+ * Modified by:
+ * - Benjamin Löliger, ETH Zurich
+ *
+ * Modifications:
+ * - Added Commands for mmWave BLE functionality
  *
  * ----------------------------------------------------------------------
  * SPDX-License-Identifier: Apache-2.0
