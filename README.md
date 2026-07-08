@@ -11,7 +11,7 @@
 
 # mmWave-shield
 
-### Wearable mmWave Sensor, for BP measurments. Shield for the BioGap9 Platform 
+## Wearable mmWave Sensor, for BP measurments. Shield for the BioGap9 Platform 
 
 ## Introduction
 
@@ -114,13 +114,13 @@ The following documentation images are released under the Creative Commons Attri
 - `Documentation/images/`
 - `Hardware/casing/images/`
 
-See the corresponding license files for details: [Documentation/images/LICENSE](Documentation/images/LICENSE) and [Hardware/casing/images/LICENSE](Hardware/casing/images/LICENSE).
+See the corresponding license files for details: [Documentation/images/LICENSE](Documentation/images/LICENSE) and [Hardware/Casing/images/LICENSE](Hardware/Casing/images/LICENSE).
 
 Some files in the software tools directories contain third-party source code from the Infineon Radar SDK or files based on Infineon example code. Some of these files were adapted for this project.
 
 See the respective source file headers for original copyright notices, modification notes, and license terms.
 
-### Limitation of Liability
+## Limitation of Liability
 
 The hardware designs, firmware, and software in this repository are provided as-is, without warranty of any kind.
 
