@@ -22,7 +22,7 @@ The project integrates a custom BGT60TR13C mmWave radar shield with the BioGAP f
 The system was developed as a research prototype for contactless pulse-wave sensing using a wearable mmWave radar sensor.
 
 <p align="center">
-  <img src="images/InAction.png" alt="BioGAP mmWave radar system in action" width="650"><br>
+  <img src="Documentation/images/InAction.png" alt="BioGAP mmWave radar system in action" width="650"><br>
   <em>BioGAP mmWave radar system during validation measurements.</em>
 </p>
 
@@ -67,7 +67,7 @@ The documentation covers the hardware setup, firmware flashing, Python environme
 A typical workflow consists of flashing the mmWave firmware, starting the Python host software, recording raw radar data, and processing the measurements offline.
 
 <p align="center">
-  <img src="images/LiveViewer.png" alt="mmWave live waveform viewer" width="750"><br>
+  <img src="Documentation/images/LiveViewer.png" alt="mmWave live waveform viewer" width="750"><br>
   <em>Python live viewer used to inspect the mmWave radar waveform in real time.</em>
 </p>
 
