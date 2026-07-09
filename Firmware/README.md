@@ -4,7 +4,7 @@
 This folder contains the firmware to use the mmWave shield on BioGAP in streaming mode.
 
 ## Getting Started
-If the SENSEI-SDK is not set up yet follow the steps in [../Documentation/Firmware/getting_started.md](../Documentation/getting_started.md).
+If the SENSEI-SDK is not set up yet follow the steps in [../Documentation/Firmware/getting_started.md](../Documentation/Firmware/getting_started.md).
 
 Make sure to attach the Mainboard to the mmWave shield.
 
@@ -29,7 +29,7 @@ The following files and functions were added or modified for the mmWave integrat
 
 The following files define the custom mmWave shield and the BGT60TR13C device-tree binding.
 
-These files need to be copied into the Sensei-SDK / firmware tree as described in [../Documentation/Firmware/getting_started.md](../Documentation/getting_started.md).
+These files need to be copied into the Sensei-SDK / firmware tree as described in [../Documentation/Firmware/getting_started.md](../Documentation/Firmware/getting_started.md).
 
 ```text
 custom_dts/bgt60tr13c/
