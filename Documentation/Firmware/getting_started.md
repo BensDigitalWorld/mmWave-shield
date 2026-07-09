@@ -20,17 +20,17 @@ Now you need to update the submodules to clone all the necessary third-party dep
 git submodule update --init --recursive
 ```
 
-# Cloning the BioGAP Repository
-Now you need to clone the BioGAP repository, which contains the firmware source code and the custom modifications for the SENSEI-SDK.
+# Cloning the BioGAP FW Code
+Now you need to clone the this repository, which contains the firmware source code and the custom modifications for the SENSEI-SDK for working with the mmWave Sensor.
 
 ```bash
-git clone https://github.com/pulp-bio/BioGAP.git
+git clone https://github.com/BensDigitalWorld/mmWave-shield.git
 ```
 
-Then move to the `BioGAP` folder:
+Then move to the `mmWave-shield` folder:
 
 ```bash
-cd BioGAP
+cd mmWave-shield
 ```
 
 # Adapting the SENSEI-SDK for BioGAP
@@ -42,10 +42,10 @@ The cloned SENSEI-SDK is not ready to be used for the BioGAP firmware. For this 
 
 You need to copy the content of these two folders into the corresponding folders in the `sensei-sdk` repository.
 
-First move to the BioGAP directory:
+First move to the mmWave-shield directory:
 
 ```bash
-cd BioGAP
+cd mmWave-shield
 ```
 
 ```bash
