@@ -125,38 +125,50 @@ For complete recordings, the resulting saved data usually has the shape:
 (num_frames, num_rx_antennas, num_chirps, num_samples)
 ```
 
-## Example Usage
+## Usage
 
-### Single BioGAP Recording
+Scripts should be started as Python modules from inside the `Software/` folder. This keeps imports and relative data paths and imports consistent.
 
-Use this script for a simple recording from the BioGAP mmWave shield:
+Example:
 
-```text
-acquisition/measure_biogap_single_session.py
+```powershell
+python -m tools.static_distance_validation.static_distance_devkit
 ```
 
-This is useful for quickly testing whether the device streams valid radar data.
+### Record some Data Example:
 
-### FPS Sweep Recording
-
-Use this script for repeated measurements at different frame rates:
-
-```text
-acquisition/record_fps_sweep_biogap.py
+```powershell
+python -m acquisition.record_fps_sweep_biogap
 ```
 
-This script records multiple configurations and stores the raw radar frames for later analysis.
+### Start the Live-Viewer:
 
-### Live Viewer
-
-Use this script for live visualization of the received radar waveform:
-
-```text
-live_viewer/live_waveform_viewer.py
+```powershell
+python -m live_viewer.live_waveform_viewer
 ```
 
-This is useful for checking the signal quality and placement before measurements.
+### Run the Static Distance Validation:
 
+```powershell
+python -m tools.static_distance_validation.static_distance_biogap
+```
+
+### Analysis Examples:
+
+Run the offline SNR analysis:
+
+```powershell
+python -m analysis_plotting.snr_analysis
+```
+
+Run the power analysis:
+
+```powershell
+python -m analysis_plotting.power_analysis
+```
+
+
+Most scripts contain configuration variables at the top of the file, such as input paths, output folders, recording names, frame rates, or selected measurement locations. These should be checked and adjusted before running the script.
 
 ## Notes
 
