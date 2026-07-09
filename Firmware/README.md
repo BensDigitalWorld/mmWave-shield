@@ -118,7 +118,7 @@ src_NRF/bsp/
 └── power/power.c
 ```
 
-A detailed overview of the modified existing files and code-level changes, excluding newly added files, is available in [../Documentation/Firmware/firmware_changes.md](../Documentation/firmware_changes.md).
+A detailed overview of the modified existing files and code-level changes, excluding newly added files, is available in [../Documentation/Firmware/firmware_changes.md](../Documentation/Firmware/firmware_changes.md).
 
 
 ### Added mmWave Functions

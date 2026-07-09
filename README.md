@@ -1,10 +1,3 @@
-## TO-DO
--Clean up jpyter notebook
-
--How to docs?
-
--Add docs for fw changes made in detail
-
 <p align="center">
   <img src="Documentation/images/LegoMan.png" alt="Device showcase" width="600">
 </p>
@@ -60,9 +53,10 @@ Repository/
 
 ## Usage
 
-For detailed setup and usage instructions, see [Getting started](Documentation/getting_started.md) (todo).
+For detailed setup and usage instructions, see 
 
-The documentation covers the hardware setup, firmware flashing, Python environment setup, acquisition scripts, live visualization, and offline processing workflow.
+[Getting started FW](Documentation/Firmware/getting_started.md)
+[Getting started SW](Software/README.md)
 
 A typical workflow consists of flashing the mmWave firmware, starting the Python host software, recording raw radar data, and processing the measurements offline.
 

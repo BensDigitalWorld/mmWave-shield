@@ -9,7 +9,7 @@ The software is organized around a reusable device communication class in `acqui
 
 Create a local Python virtual environment inside the `Software/` folder:
 
-```bash
+```powershell
 cd Software
 python -m venv .venv
 ```
@@ -18,28 +18,31 @@ Activate the environment.
 
 On Windows PowerShell:
 
-```bash
+```powershell
 .\.venv\Scripts\Activate.ps1
 ```
 
 Install the required Python packages:
 
-```bash
+```powershell
 python -m pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-## Infineon Radar SDK
+### Optional: Infineon Radar SDK Python Wheel
 
-Some scripts in `tools/devkit_exploration/` and `tools/static_distance_validation/` use the Infineon Radar SDK Python package.
+Some scripts in `tools/devkit_exploration/` and `tools/static_distance_validation/` require the Infineon Radar SDK Python wrapper.
 
-This package is not installed from `requirements.txt` by default. Install the SDK wheel manually from the Infineon Radar SDK installation.
+The Infineon Radar SDK wheel is not included in this repository and is not installed through `requirements.txt`. It has to be installed manually from the Infineon Radar SDK release package.
 
-Example:
+The required wheel can usually be found in the `python_wheels/` folder of the Infineon Radar SDK package. Choose the wheel that matches your operating system, CPU architecture, and Python version.
 
-```bash
-pip install path/to/ifxradarsdk-*.whl
+For example on windows: After creating and activating the Python virtual environment, install the wheel with:
+
+```powershell
+python -m pip install "path\to\radar_sdk\python_wheels\ifxradarsdk-3.6.4+4b4a6245-py3-none-win_amd64.whl"
 ```
+Make sure that the wheel matches your operating system, CPU architecture, and Python version.
 
 This is only required for scripts that directly use the Infineon DevKit or SDK-based processing examples. The BioGAP acquisition and plotting scripts do not require the SDK wheel unless they explicitly import `ifxradarsdk`.
 
@@ -76,7 +79,7 @@ Software/
 │       └── temple/
 ```
 
-The exact folder names must match the paths configured in the corresponding Python scripts.
+The exact folder names should match the paths configured in the corresponding Python scripts.
 
 The BioGAP acquisition and live-viewer scripts can be used without previously recorded data. However, the offline analysis and plotting scripts require the corresponding measurement files.
 
@@ -87,6 +90,7 @@ Scripts related to Finapres / maneuver analysis require both:
 
 Scripts related to power analysis require exported `.csv` logs recorded with the Nordic nRF Power Profiler Kit.
 
+Some example data is provided and can be used in the jupyter notebook to get started with!
 
 ## Device Communication Class
 

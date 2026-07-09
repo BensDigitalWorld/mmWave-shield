@@ -5,4 +5,16 @@ outputs/
 .venv/
 __pycache__/
 
-data/
+# Ignore measurement data by default
+data/**
+
+# Keep selected example data files
+!data/
+!data/biogap_measurments/
+!data/biogap_measurments/radar_fps_sweep/
+!data/biogap_measurments/radar_fps_sweep/radar_invivo_fps_sweep_2026-05-22_18-28/
+!data/biogap_measurments/radar_fps_sweep/radar_invivo_fps_sweep_2026-05-22_18-28/fps_200_order_05_rep_1_data.npy
+
+!data/dev_kit_measurments/
+!data/dev_kit_measurments/radar_session_2026-03-06_16-57_n/
+!data/dev_kit_measurments/radar_session_2026-03-06_16-57_n/01_200fps_35chrep_128ch_32sa.npy
