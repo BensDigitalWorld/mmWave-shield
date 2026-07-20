@@ -5,7 +5,7 @@
  *
  * Last edited: 1.07.2026
  *
- * Copyright (C) 2025, ETH Zurich
+ * Copyright (C) 2025-2026, ETH Zurich
  *
  * Authors:
  * - Sebastian Frey (sefrey@iis.ee.ethz.ch), ETH Zurich

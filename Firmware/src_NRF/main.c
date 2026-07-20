@@ -5,7 +5,7 @@
  *
  * Last edited: 1.7.2026
  *
- * Copyright (c) 2024 ETH Zurich and University of Bologna
+ * Copyright (c) 2024-2026 ETH Zurich and University of Bologna
  *
  * Authors:
  * - Philip Wiese (wiesep@iis.ee.ethz.ch), ETH Zurich

@@ -2,7 +2,7 @@
 #
 # File: bgt_com_class.py
 #
-# Last edited: 22.06.2025
+# Last edited: 14.07.2026
 #
 # Copyright (C) 2026, ETH Zurich
 #

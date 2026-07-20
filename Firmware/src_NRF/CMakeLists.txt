@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------
 #
-# Copyright (c) 2024 ETH Zurich
+# Copyright (c) 2024-2026 ETH Zurich
 #
 # Modified by:
 # - Benjamin Löliger, ETH Zurich

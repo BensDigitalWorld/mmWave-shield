@@ -2,7 +2,7 @@
 #
 # File: power_analysis.py
 #
-# Last edited: 23.06.2025
+# Last edited: 14.07.2026
 #
 # Copyright (C) 2026, ETH Zurich
 #

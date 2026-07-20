@@ -2,7 +2,7 @@
 #
 # File: manouver_plots.py
 #
-# Last edited: 26.06.2025
+# Last edited: 14.07.2026
 #
 # Copyright (C) 2026, ETH Zurich
 #
