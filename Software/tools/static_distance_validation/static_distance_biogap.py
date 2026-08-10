@@ -27,10 +27,10 @@
 # ===========================================================================
 #
 # Modifications:
-# Copyright (C) 2026, ETH Zurich
+# Copyright (C) 2026 Benjamin Löliger
 #
-# Author:
-# - Benjamin Löliger, ETH Zurich
+# Modified by:
+# - Benjamin Löliger (bloeliger@ethz.ch)
 #
 # This file was adapted for the BioGAP mmWave radar project.
 # Modifications include:

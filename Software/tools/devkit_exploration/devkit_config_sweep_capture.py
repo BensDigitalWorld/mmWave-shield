@@ -4,10 +4,10 @@
 #
 # Last edited: 30.06.2025
 #
-# Copyright (C) 2026, ETH Zurich
+# Copyright (C) 2026 Benjamin Löliger
 #
 # Authors:
-# - Benjamin Löliger, ETH Zurich
+# - Benjamin Löliger (bloeliger@ethz.ch)
 #
 # -----------------------------------------------------------------------------
 # SPDX-License-Identifier: Apache-2.0
