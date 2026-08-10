@@ -1,5 +1,12 @@
 # Copyright (c) 2024 Nordic Semiconductor ASA
+# Copyright (C) 2026 Benjamin Löliger
 # SPDX-License-Identifier: Apache-2.0
+#
+# Modified by:
+# - Benjamin Löliger (bloeliger@ethz.ch)
+#
+# Modifications:
+# - Adapted configuration for the BioGAP mmWave radar firmware variant.
 
 CONFIG_GPIO_PCA64XXA=n
 CONFIG_BME680=n

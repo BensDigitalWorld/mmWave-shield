@@ -1,9 +1,10 @@
 # -----------------------------------------------------------------------------
 #
 # Copyright (c) 2024-2026 ETH Zurich
+# Copyright (c) 2026 Benjamin Löliger
 #
 # Modified by:
-# - Benjamin Löliger, ETH Zurich
+# - Benjamin Löliger (bloeliger@ethz.ch)
 #
 # Modifications:
 # - Added configuration-dependent sensor source inclusion.

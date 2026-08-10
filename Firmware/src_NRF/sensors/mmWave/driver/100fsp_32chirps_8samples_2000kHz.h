@@ -12,7 +12,7 @@
  * firmware to configure the BGT60TR13C sensor.
  *
  * Generated/added by:
- * - Benjamin Löliger, ETH Zurich
+ * - Benjamin Löliger (bloeliger@ethz.ch)
  *
  * Tool/source:
  * - XENSIV Radar Fusion GUI

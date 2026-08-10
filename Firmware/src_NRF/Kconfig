@@ -1,10 +1,11 @@
 #
 # Copyright (c) 2018 Nordic Semiconductor
+# Copyright (c) 2026 Benjamin Löliger
 #
 # SPDX-License-Identifier: LicenseRef-Nordic-5-Clause
 #
 # Modified by:
-# - Benjamin Löliger, ETH Zurich
+# - Benjamin Löliger (bloeliger@ethz.ch)
 #
 # Modifications:
 # - Added build-time configuration options for optional sensor modules.

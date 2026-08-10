@@ -6,9 +6,10 @@
  * Last edited: 01.07.2026
  *
  * Copyright (C) 2026, ETH Zurich and University of Bologna.
+ * Copyright (C) 2026, Benjamin Löliger
  *
  * Modified by:
- * - Benjamin Löliger, ETH Zurich
+ * - Benjamin Löliger (bloeliger@ethz.ch)
  *
  * Modifications: 
  * - Added code so no issues arise when using mmWave instead of EEG or EMG

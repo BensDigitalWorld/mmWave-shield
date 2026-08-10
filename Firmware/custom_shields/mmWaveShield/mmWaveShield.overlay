@@ -1,7 +1,13 @@
 /*
  * Copyright (c) 2022 Nordic Semiconductor ASA
- *
+ * Copyright (C) 2026 Benjamin Löliger
  * SPDX-License-Identifier: LicenseRef-Nordic-5-Clause
+ *
+ * Modified by:
+ * - Benjamin Löliger (bloeliger@ethz.ch)
+ *
+ * Modifications:
+ * - Adapted configuration for the BioGAP mmWave radar firmware variant.
  */
 
 
@@ -19,7 +25,7 @@
     bgt60: bgt60@0 {
         compatible = "infineon,bgt60tr13c";
         reg = <0>;
-        spi-max-frequency = <8000000>; 
+        spi-max-frequency = <8000000>;
         manual-cs-gpios = <&gpio1 11 GPIO_ACTIVE_LOW>;
         irq-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;
         reset-gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
@@ -31,7 +37,7 @@
 &pinctrl {
     spi4_default: spi4_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 8)>,					 
+            psels = <NRF_PSEL(SPIM_SCK, 0, 8)>,
                     <NRF_PSEL(SPIM_MOSI, 0, 9)>,
                     <NRF_PSEL(SPIM_MISO, 0, 10)>;
         };

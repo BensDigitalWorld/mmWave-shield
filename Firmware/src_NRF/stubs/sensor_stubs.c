@@ -3,10 +3,10 @@
  *
  * File: sensor_stubs.c
  *
- * Copyright (C) 2026, ETH Zurich
+ * Copyright (C) 2026 Benjamin Löliger
  *
  * Authors:
- * - Benjamin Löliger, ETH Zurich
+ * - Benjamin Löliger (bloeliger@ethz.ch)
  *
  * -----------------------------------------------------------------------------
  * SPDX-License-Identifier: Apache-2.0

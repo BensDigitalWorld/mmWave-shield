@@ -6,12 +6,13 @@
  * Last edited: 01.07.2026
  *
  * Copyright (C) 2026, ETH Zurich
+ * Copyright (C) 2026, Benjamin Löliger
  *
  * Authors:
  * - Sebastian Frey (sefrey@iis.ee.ethz.ch), ETH Zurich
  *
  * Modified by:
- * - Benjamin Löliger, ETH Zurich
+ * - Benjamin Löliger (bloeliger@ethz.ch)
  *
  * Modifications:
  * - Added Commands for mmWave BLE functionality

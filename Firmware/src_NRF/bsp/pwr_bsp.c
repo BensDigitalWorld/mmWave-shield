@@ -6,13 +6,14 @@
  * Last edited: 1.07.2026
  *
  * Copyright (C) 2024-2026, ETH Zurich and University of Bologna.
+ * Copyright (C) 2026, Benjamin Löliger
  *
  * Authors:
  * - Philip Wiese (wiesep@iis.ee.ethz.ch), ETH Zurich
  * - Sebastian Frey (sefrey@iis.ee.ethz.ch), ETH Zurich
  *
  * Modified by:
- * - Benjamin Löliger, ETH Zurich
+ * - Benjamin Löliger (bloeliger@ethz.ch)
  *
  * Modifications: 
  * - Changed VD2 (sbb_conf[2]) to output 3V3

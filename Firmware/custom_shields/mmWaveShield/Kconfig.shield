@@ -1,5 +1,12 @@
 # Copyright (c) 2019 Linaro Limited
+# Copyright (C) 2026 Benjamin Löliger
 # SPDX-License-Identifier: Apache-2.0
+#
+# Modified by:
+# - Benjamin Löliger (bloeliger@ethz.ch)
+#
+# Modifications:
+# - Added custom mmWaveShield configuration option.
 
 config SHIELD_MMWAVESHIELD
 	def_bool $(shields_list_contains,mmWaveShield)
